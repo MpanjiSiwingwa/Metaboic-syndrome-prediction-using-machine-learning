@@ -950,6 +950,348 @@ scatter_plot('Waist_Circumference(cm)', 'Age (yrs)')
 ### BMI and Age correlation to Metabolic Syndrome
 scatter_plot('BMI(kg/m2)', 'Age (yrs)')
 
+### Cd4 Count and Age Correction to metabolic syndrome
+scatter_plot('CD4_count(cells/µl)', 'Age (yrs)')
+
+### Regimen_Type and Age correlation to Metabolic Syndrome
+scatter_plot('Regimen_Type', 'Age (yrs)')
+
+### Distribution of metabolic syndrome by regimem types
+sns.countplot(data=mets, x='Regimen_Type', hue='Metabolic_Syndrome', palette='Set2')
+plt.title('Distribution of Metabolic Syndrome by Regimen Type', fontsize=16, weight='bold')
+plt.xlabel('Regimen Type', fontsize=14, weight='bold')
+plt.ylabel('Count', fontsize=14, weight='bold')
+plt.xticks(rotation=45, weight='bold')
+plt.yticks(weight='bold')
+plt.legend(title='Metabolic Syndrome', title_fontsize='13', fontsize='12')
+plt.tight_layout()
+plt.show()
+
+# Group by 'Regimen_Type' and 'Metabolic_Syndrome' and count the occurrences
+regimen_met_syn_counts = mets.groupby(['Regimen_Type', 'Metabolic_Syndrome']).size().unstack(fill_value=0)
+
+# Display the result
+print(regimen_met_syn_counts)
+
+### Gender and Age(years) correction to metabolic syndrome
+scatter_plot('Sex', 'Age (yrs)')
+
+### Distribution of metabolic syndrome by Gender
+sns.countplot(data=mets, x='Sex', hue='Metabolic_Syndrome', palette='Set2')
+plt.title('Distribution of Metabolic Syndrome by Sex', fontsize=16, weight='bold')
+plt.xlabel('Sex', fontsize=14, weight='bold')
+plt.ylabel('Count', fontsize=14, weight='bold')
+plt.xticks(weight='bold')
+plt.yticks(weight='bold')
+plt.legend(title='Metabolic Syndrome', title_fontsize='13', fontsize='12')
+plt.show()
+
+### Diabetes Mellitus status and Age(years) correction to metabolic syndrome
+scatter_plot('Diabetes_Mellitus_status', 'Age (yrs)')
+
+# Create a count plot for metabolic syndrome and diabetes status
+sns.countplot(data=mets, x='Diabetes_Mellitus_status', hue='Metabolic_Syndrome', palette='Set2')
+plt.title('Distribution of Metabolic Syndrome with Diabetes Status', fontsize=16, weight='bold')
+plt.xlabel('Diabetes Mellitus Status', fontsize=14, weight='bold')
+plt.ylabel('Count', fontsize=14, weight='bold')
+plt.xticks(weight='bold')
+plt.yticks(weight='bold')
+plt.legend(title='Metabolic Syndrome', title_fontsize='13', fontsize='12')
+plt.show()
+
+### Tobbaco Use and Age correction to Metabolic syndrome
+scatter_plot('Tobbacco_Use', 'Age (yrs)')
+
+### Alcohol use and Age Correction to metabolic syndrome
+scatter_plot('Alcohol_Consuption', 'Age (yrs)')
+
+### Distribution of metabolic syndrome by alcohol Consumption
+sns.countplot(data=mets, x='Alcohol_Consuption', hue='Metabolic_Syndrome', palette='Set2')
+plt.title('Distribution of Metabolic Syndrome with Alcohol Consumption', fontsize=16, weight='bold')
+plt.xlabel('Alcohol Consumption', fontsize=14, weight='bold')
+plt.ylabel('Count', fontsize=14, weight='bold')
+plt.xticks(weight='bold')
+plt.yticks(weight='bold')
+plt.legend(title='Metabolic Syndrome', title_fontsize='13', fontsize='12')
+plt.show()
+
+### Level of Education and Age correction to metabolic syndrome
+scatter_plot('Educational_Level', 'Age (yrs)')
+
+# Create a count plot for educational level and metabolic syndrome
+sns.countplot(data=mets, x='Educational_Level', hue='Metabolic_Syndrome', palette='Set2')
+plt.title('Distribution of Metabolic Syndrome by Educational Level', fontsize=16, weight='bold')
+plt.xlabel('Educational Level', fontsize=14, weight='bold')
+plt.ylabel('Count', fontsize=14, weight='bold')
+plt.xticks(rotation=45, weight='bold')
+plt.yticks(weight='bold')
+plt.legend(title='Metabolic Syndrome', title_fontsize='13', fontsize='12')
+plt.show()
+
+### Blood sugar and age correction to Metabolic Syndrome
+scatter_plot('Blood_Glucose (mmol/L)', 'Age (yrs)')
+
+# Create a count plot for metabolic syndrome and event name
+sns.countplot(data=mets, x='Event_Name', hue='Metabolic_Syndrome', palette='Set2')
+plt.title('Distribution of Metabolic Syndrome by Event Name', fontsize=16, weight='bold')
+plt.xlabel('Event Name', fontsize=14, weight='bold')
+plt.ylabel('Count', fontsize=14, weight='bold')
+plt.xticks(rotation=45, weight='bold')
+plt.yticks(weight='bold')
+plt.legend(title='Metabolic Syndrome', title_fontsize='13', fontsize='12')
+plt.tight_layout()
+plt.show()
+
+# Calculate the prevalence of metabolic syndrome per event name
+prevalence = mets.groupby('Event_Name')['Metabolic_Syndrome'].value_counts(normalize=True).unstack().fillna(0) * 100
+
+# Round the prevalence to two decimal places
+prevalence = prevalence.round(2)
+
+# Sort the prevalence from lowest to highest
+sorted_prevalence = prevalence.sort_values(by='MetSyn')
+
+# Display the result
+print(sorted_prevalence)
+
+# Calculate the prevalence of metabolic syndrome per event name
+prevalence = mets.groupby('Event_Name')['Metabolic_Syndrome'].value_counts(normalize=True).unstack().fillna(0) * 100
+
+# Round the prevalence to two decimal places
+prevalence = prevalence.round(2)
+
+# Sort the prevalence from lowest to highest
+sorted_prevalence = prevalence.sort_values(by='MetSyn')
+
+# Plot the sorted prevalence
+sorted_prevalence['MetSyn'].plot(kind='bar', color='navy')
+plt.title('Prevalence of Metabolic Syndrome by Event Name', fontsize=16, weight='bold')
+plt.xlabel('Event Name', fontsize=14, weight='bold')
+plt.ylabel('Prevalence (%)', fontsize=14, weight='bold')
+plt.xticks(rotation=45, weight='bold')
+plt.yticks(weight='bold')
+plt.tight_layout()
+plt.show()
+
+### Triglycerides and Age correction to metabolic syndrome
+scatter_plot('Triglycerides (mmol/L)', 'Age (yrs)')
+
+### Cholesterol HDL and Age Correlation to Metabolic syndrome
+scatter_plot('Cholesterol_HDL_(mmol/L)', 'Age (yrs)')
+
+### Viral load and Age Correction to Metabolic syndrome
+scatter_plot('Viral_Load(cp/ml)', 'Age (yrs)')
+
+### Correlation Heatmap
+# Define a dictionary with key/value pairs and use it to replace values
+dict = {"No MetSyn": 0, "MetSyn": 1}
+mets.replace({'Metabolic_Syndrome': dict}, inplace = True)
+mets.Metabolic_Syndrome.astype('int32').dtypes
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(10, 10), facecolor='w')
+# Select only numeric columns for correlation calculation
+numeric_cols = mets.select_dtypes(include=['number'])
+corr = numeric_cols.corr()
+sns.heatmap(corr, cmap='viridis', annot=True)
+plt.title('Correlation Heatmap', fontsize=24, weight='bold')
+plt.xticks(fontsize=14, weight='bold', rotation=90)
+plt.yticks(fontsize=14, weight='bold', rotation=0)
+plt.tight_layout()
+plt.show()
+
+## Preprocessing/Processing for Machine Learning
+- ordinal features = [Educational Levell]
+- numeric features = ['Age', 'Waist circumference', 'BMI', 'Blood sugar, cholesterol HDL,Blood Glucose, Triglycerides]
+- nominal features = ['Sex', 'MetabolicSyndrome', 'Drug_Code',  'Diabetes_Mellitus_status', 'Tobbacco_Use', 'Alcohol_Consuption']
+- date/time features = Event Name
+- pass through = none
+
+### Evaluate if Target is Balanced
+# Display normalized target value counts
+mets['Metabolic_Syndrome'].value_counts(normalize=True)
+
+### Validation Split
+# Define features (X) and target (y)
+X = mets.drop(columns = ['Metabolic_Syndrome',])
+y = mets['Metabolic_Syndrome']
+
+# Split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+### Instantiate Column Selectors
+# Create column selectors.
+cat_selector = make_column_selector(dtype_include='object')
+num_selector = make_column_selector(dtype_include='number')
+
+# Display the list of categorical column names.
+cat_selector(X_train)
+
+# Display the list of numeric column names.
+num_selector(X_train)
+
+### Instantiate Transformers
+# Imputers
+freq_imputer = SimpleImputer(strategy='most_frequent')
+median_imputer = SimpleImputer(strategy='median')
+# Scaler
+scaler = StandardScaler()
+# One Hot Encoder
+ohe = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+
+### Instantiate Pipelines
+# Create the numeric pipeline
+numeric_pipe = make_pipeline(median_imputer, scaler)
+# Display the numeric pipeline
+numeric_pipe
+
+# Create the categorical pipeline
+categorical_pipe = make_pipeline(freq_imputer, ohe)
+# Display the categorical pipeline
+categorical_pipe
+
+### Instantiate ColumnTransformer
+# Create tuples for the Column Transformers
+number_tuple = (numeric_pipe, num_selector)
+category_tuple = (categorical_pipe, cat_selector)
+# Create the ColumnTransformer
+preprocessor = make_column_transformer(number_tuple, 
+                                       category_tuple, 
+                                       remainder='passthrough')
+# Display the ColumnTransformer
+preprocessor
+
+### Fit and Transform Data
+# Fit on Train
+preprocessor.fit(X_train)
+
+# Transform Train and Test
+X_train_processed = preprocessor.transform(X_train)
+X_test_processed = preprocessor.transform(X_test)
+
+# Check for missing values and that data is scaled and one-hot encoded
+print(np.isnan(X_train_processed).sum().sum(), 'missing values in training data')
+print(np.isnan(X_test_processed).sum().sum(), 'missing values in testing data')
+print('\n')
+print('All data in X_train_processed are', X_train_processed.dtype)
+print('All data in X_test_processed are', X_test_processed.dtype)
+print('\n')
+print('shape of data is', X_train_processed.shape)
+print('\n')
+X_train_processed
+
+X_test_df = pd.DataFrame(X_test_processed)
+X_train_df = pd.DataFrame(X_train_processed)
+
+X_train_df.describe().round(2)
+X_test_df.describe().round(2)
+
+### KNN Model
+# Make an instance of the Model
+knn = KNeighborsClassifier()
+
+# Create Pipeline
+knn_model_processor = make_pipeline(knn)
+
+# Fit on Train
+knn_model_processor.fit(X_train_processed, y_train)
+
+# Calculate Model Accuracy
+knn_model_accuracy = accuracy_score(y_test, knn_model_processor.predict(X_test_processed))
+
+# Display Model Accuracy
+print(f'KNN Model Accuracy = {knn_model_accuracy}')
+
+# Display the hyperparameters.
+knn_model_processor.get_params()
+
+## Tune with loop
+# Tune K utilizing a loop.
+krange = range(1, 20)
+k_list = []
+for k in krange: 
+  knn_model_processor = make_pipeline(KNeighborsClassifier(n_neighbors=k))
+  knn_model_processor.fit(X_train_processed, y_train)
+  score = accuracy_score(y_test, knn_model_processor.predict(X_test_processed))
+  k_list.append(score)
+
+# Visualize Accuracy Scores.
+plt.plot(krange, k_list)
+plt.xlabel('K')
+plt.ylabel('Score');
+
+# Create Pipeline utilizing hyperparameters with highest accuracy
+knn_model_processor = make_pipeline(KNeighborsClassifier(n_neighbors=11))
+# Fit on Train
+knn_model_processor.fit(X_train_processed, y_train)
+
+# Print Model Accuracy Score
+knn_model_accuracy = accuracy_score(y_test, knn_model_processor.predict(X_test_processed))
+print(f'KNN Model Accuracy Score = {knn_model_accuracy}')
+
+### Tune using GridSearch
+### Select Hyperparameters
+# Select hyperparameters
+knn_parameters = { 'kneighborsclassifier__n_neighbors': [8,9,10,11,12,13,14], 
+                  'kneighborsclassifier__leaf_size': [2, 3, 4, 5,10,15,20,25]}
+
+### Instantiate Grid Search
+# Instantiate Gridsearch
+knn_grid = GridSearchCV(knn_model_processor, knn_parameters)
+# Fit GridSearch
+knn_grid.fit(X_train_processed, y_train)
+
+# Display the best hyperparameters From GridSearchCV.
+knn_grid.best_params_
+
+# Extract KNN Model with best hyperparameters.
+best_knn = knn_grid.best_estimator_
+
+## Predictions
+# Predictions from KNN Model with the best hyperparameters.
+knn_train_preds = best_knn.predict(X_train_processed)
+knn_test_preds = best_knn.predict(X_test_processed)
+
+## Scores
+## Accuracy scores
+# Calculate classification accuracy scores
+knn_train_accuracy = best_knn.score(X_train_processed, y_train)
+knn_test_accuracy = best_knn.score(X_test_processed, y_test)
+# Print classification accuracy scores
+print(f'KNN Train Accuracy Score: {knn_train_accuracy}')
+print(f'KNN Test Accuracy Score: {knn_test_accuracy}')
+
+## Recall score
+# Calculate classification recall scores
+knn_train_recall = recall_score(y_train, knn_train_preds, pos_label=1)
+knn_test_recall = recall_score(y_test, knn_test_preds, pos_label=1)
+# Print classification recall scores
+print(f'KNN Train Recall Score = {knn_train_recall}')
+print(f'KNN Test Recall Score = {knn_test_recall}')
+
+### Precision Scores
+# Calculate classification precision scores
+knn_train_precision = precision_score(y_train, knn_train_preds, pos_label=1)
+knn_test_precision = precision_score(y_test, knn_test_preds, pos_label=1)
+
+# Print precision scores
+print(f'KNN Train Precision Score = {knn_train_precision}')
+print(f'KNN Test Precision Score = {knn_test_precision}')
+
+#AUC scores
+# Calculate AUC scores
+knn_train_auc = roc_auc_score(y_train, best_knn.predict_proba(X_train_processed)[:,1])
+knn_test_auc = roc_auc_score(y_test, best_knn.predict_proba(X_test_processed)[:,1])
+# Display AUC scores
+print(f'KNN Train AUC: {knn_train_auc}')
+print(f'KNN Test AUC: {knn_test_auc}')
+
+## Logistic Regression Model
+
+
+
 
 ```
 
