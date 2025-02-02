@@ -913,6 +913,44 @@ tabacco_summary = tabacco_counts.astype(str) + " (" + tabacco_percentages.round(
 print(f"Total Tabbacco Use: {total_tabbacco_use}")
 print(tabacco_summary)
 
+# Check the column names to confirm the correct spelling
+print(mets.columns)
+
+# Utilize function to display count plot
+count_plot('Tobbacco_Use', ['no', 'yes'])
+
+# Display diabetis Mellitus status column statistics
+mets['Diabetes_Mellitus_status'].describe()
+
+# Calculate the total number of diabetes_mellitus_status
+total_diabetes_status = diabetes_counts.sum()
+
+# Format the summary with brackets in percentage
+diabetes_summary = diabetes_counts.astype(str) + " (" + diabetes_percentages.round(2).astype(str) + "%)"
+
+# Display the total number and the formatted summary
+print(f"Total Diabetes Mellitus Status: {total_diabetes_status}")
+print(diabetes_summary)
+
+# Utilize function to display count plot
+count_plot('Diabetes_Mellitus_status', ['no', 'yes', 'Unknown'])
+
+### Explanatory Data Analysis
+### Scatter plot of BMI vs Waist Circumference and Metabolyc Syndrome
+sns.scatterplot(data = mets, x = 'BMI(kg/m2)', y = 'Waist_Circumference(cm)', hue = 'Metabolic_Syndrome')
+plt.legend();
+
+### Scatter plot of Blood Glucose vs Triglycerides and Metabolyc_Syndrome
+sns.scatterplot(data = mets, x = 'Blood_Glucose (mmol/L)', y = 'Triglycerides (mmol/L)', hue = 'Metabolic_Syndrome')
+plt.legend();
+
+#### WaistCirc and Age correlation to MetabolicSyndrome
+scatter_plot('Waist_Circumference(cm)', 'Age (yrs)')
+
+### BMI and Age correlation to Metabolic Syndrome
+scatter_plot('BMI(kg/m2)', 'Age (yrs)')
+
+
 ```
 
 ### Results
