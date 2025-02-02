@@ -384,8 +384,534 @@ column_statistics('Educational_Level', 10)
 # Fill NaN values with the constant value 'Unknown'
 mets.Educational_Level.fillna('Unknown',inplace=True)
 
+# Display the unique values for this column
+print(mets['Educational_Level'].unique())
 
+# Display column statistics diabetis mellitus
+column_statistics('Diabetes_Mellitus_status', 10)
 
+# Fill NaN values with the constant value 'Unknown'
+mets.Diabetes_Mellitus_status.fillna('Unknown',inplace=True)
+
+# Display the unique values for this column
+print(mets['Diabetes_Mellitus_status'].unique())
+
+# Display column statistics diabetis mellitus
+column_statistics('Tobbacco_Use', 10)
+
+# Fill NaN values with the constant value 'Unknown'
+mets.Tobbacco_Use.fillna('Unknown',inplace=True)
+
+# Display the unique values for this column
+print(mets['Tobbacco_Use'].unique())
+
+# Display column statistics diabetis mellitus
+column_statistics('Alcohol_Consuption', 10)
+
+# Fill NaN values with the constant value 'Unknown'
+mets.Alcohol_Consuption .fillna('Unknown',inplace=True)
+
+# Display the unique values for this column
+print(mets['Alcohol_Consuption'].unique())
+
+# Display column statistics drug_code
+column_statistics('Regimen_Type', 10)
+
+# Display column statistics Event_Name
+column_statistics('Event_Name', 10)
+
+## Numeric Columns
+
+# Display column statistics of Age
+column_statistics('Age (yrs)', 1)
+
+# Display column statistics of BMI 
+column_statistics('BMI(kg/m2)', 1)
+
+# Display column statistics of waist_circumference
+column_statistics('Waist_Circumference(cm)', 1)
+
+# Display column statistics of Hip_Circumference(cm)
+column_statistics('Hip_Circumference(cm)', 1)
+
+# Display column statistics of CD4_count
+column_statistics('CD4_count(cells/µl)', 1)
+
+# Display column statistics of Viral_Load(cp/ml)
+column_statistics('Viral_Load(cp/ml)', 1)
+
+# Display column statistics of HDL cholesterol
+column_statistics('Cholesterol_HDL_(mmol/L)', 1)
+
+# Display column statistics of Triglycerides (mmol/L)
+column_statistics('Triglycerides (mmol/L)', 1)
+
+# Display the column names to verify the correct name
+print(mets.columns)
+
+# Display column statistics of Blood_Sugar
+column_statistics('Blood_Glucose (mmol/L)', 1)
+
+# fill NA with mean value
+
+mets[['BMI(kg/m2)', 'Waist_Circumference(cm)', 'Hip_Circumference(cm)', 'Viral_Load(cp/ml)', 'Blood_Glucose (mmol/L)', 'Triglycerides (mmol/L)', 'Cholesterol_HDL_(mmol/L)']] = mets[['BMI(kg/m2)', 'Waist_Circumference(cm)', 'Hip_Circumference(cm)', 'Viral_Load(cp/ml)', 'Blood_Glucose (mmol/L)', 'Triglycerides (mmol/L)', 'Cholesterol_HDL_(mmol/L)']].fillna(mets[['BMI(kg/m2)', 'Waist_Circumference(cm)', 'Hip_Circumference(cm)', 'Viral_Load(cp/ml)', 'Triglycerides (mmol/L)', 'Cholesterol_HDL_(mmol/L)']].mean())
+
+# Display the count of missing values by column
+print(mets.isna().sum())
+
+mets.info()
+
+# describe data
+mets.describe().T.round(2)
+
+# Inspect column Datatypes for Errors
+# Display the descriptive statistics for the non-numeric columns
+mets.describe(exclude="number")
+
+# display the unique values for sex column 
+print(mets['Sex'].unique())
+
+# Calculate value counts and their percentages
+gender_counts = mets['Sex'].value_counts()
+gender_percentages = mets['Sex'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+gender_summary = gender_counts.astype(str) + " (" + gender_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(gender_summary)
+
+# Filter the dataframe for only the baseline event
+baseline_df = mets[mets['Event_Name'] == 'Baseline']
+
+# Calculate value counts and their percentages for the 'Sex' column
+baseline_gender_counts = baseline_df['Sex'].value_counts()
+baseline_gender_percentages = baseline_df['Sex'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+baseline_gender_summary = baseline_gender_counts.astype(str) + " (" + baseline_gender_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(baseline_gender_summary)
+
+# Regimen Types columns
+# Rename the column 'Drug_Code ' to 'Regimen_Type'
+mets.rename(columns={'Drug_Code ': 'Regimen_Type'}, inplace=True)
+
+# Display the updated column names to verify the change
+print(mets.columns)
+
+# display the unique values for this column 
+print(mets['Regimen_Type'].unique())
+
+# Calculate value counts and their percentages
+drugcode_counts = mets['Regimen_Type'].value_counts()
+drugcode_percentages = mets['Regimen_Type'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+drugcode_summary = drugcode_counts.astype(str) + " (" + drugcode_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(drugcode_summary)
+
+### Metabolic sydrome column
+# Display the column names to check if 'Metabolic_Syndrome' exists
+print(mets.columns)
+
+# Display the unique values in this column
+if 'Metabolic_Syndrome' in mets.columns:
+	print(mets['Metabolic_Syndrome'].unique())
+else:
+	print("Column 'Metabolic_Syndrome' does not exist in the dataframe.")
+
+# Calculate value counts and their percentages
+met_syd = mets['Metabolic_Syndrome'].value_counts()
+met_syd_percentages = mets['Metabolic_Syndrome'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+met_syd_summary = met_syd.astype(str) + " (" + met_syd_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(met_syd_summary)
+
+### Diabetis Mellitus column
+# Display the unique values in this column
+print(mets['Diabetes_Mellitus_status'].unique())
+
+# Calculate value counts and their percentages
+diabetes_counts = mets['Diabetes_Mellitus_status'].value_counts()
+diabetes_percentages = mets['Diabetes_Mellitus_status'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+diabetes_summary = diabetes_counts.astype(str) + " (" + diabetes_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(diabetes_summary)
+
+### Tobbaco use column
+# Display the unique values in this column
+print(mets['Tobbacco_Use'].unique())
+
+# Calculate value counts and their percentages
+tabacco_counts = mets['Tobbacco_Use'].value_counts()
+tabacco_percentages = mets['Tobbacco_Use'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+tabacco_summary = tabacco_counts.astype(str) + " (" + tabacco_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(tabacco_summary)
+
+# Alcohol use in column
+# Display the unique values in this column
+print(mets['Alcohol_Consuption'].unique())
+
+# Calculate value counts and their percentages
+alcohol_counts = mets['Alcohol_Consuption'].value_counts()
+alcohol_percentages = mets['Alcohol_Consuption'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+alcohol_summary = alcohol_counts.astype(str) + " (" + alcohol_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(alcohol_summary)
+
+# Level of Education column
+# Display the unique values in this column
+print(mets['Educational_Level'].unique())
+
+# Calculate value counts and their percentages
+education_counts = mets['Educational_Level'].value_counts()
+education_percentages = mets['Educational_Level'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+education_summary = education_counts.astype(str) + " (" + education_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(education_summary)
+
+# Numerical data types
+# Display the descriptive statistics for the numeric columns
+mets.describe().T.round(2)
+
+# Exploratory Data Analysis
+# Create a function to create a Histogram
+def hist_plot(column_name, unit_of_measure, bin_count):
+    fig, ax = plt.subplots(nrows=1, figsize=(8,4), facecolor='w')
+    plt.title(column_name, fontsize = 22, weight='bold')
+    sns.histplot(data=mets, x=column_name, color='#069AF3', 
+                 linewidth=2, bins=bin_count); 
+    plt.xlabel(unit_of_measure, fontsize = 16, weight='bold')
+    plt.xticks(weight='bold')
+    ax.set_ylabel('Instances',fontweight='bold',fontsize=14)
+    ax.set_facecolor('lightblue')
+    ax.tick_params(labelcolor='k', labelsize=10)
+    ax.set_yticklabels(ax.get_yticks(), weight='bold')
+    for axis in ['top','bottom','left','right']:
+        ax.spines[axis].set_linewidth(3)
+
+# Create a function to create a Histogram and Boxplot in the same figure
+def hist_box_plot(column_name, unit_of_measure, bin_count):
+    fig, (ax1,ax2) = plt.subplots(nrows =2, sharex=True, figsize=(8, 6), 
+                                  facecolor='w', 
+                                  gridspec_kw={'height_ratios':[0.75, 0.25]})
+    plt.suptitle(f'{column_name}', y=1.02, va='center', 
+                 fontsize = 22, weight='bold')
+    sns.histplot(data=mets, x=column_name, color='#069AF3', linewidth=2, 
+                 ax=ax1, bins=bin_count);
+    plt.xlabel(unit_of_measure, fontsize = 16, weight='bold')
+    plt.xticks(weight='bold')
+    ax1.set_ylabel('Instances',fontweight='bold',fontsize=18)
+    ax1.set_facecolor('lightblue')
+    ax1.tick_params(labelcolor='k', labelsize=10)
+    ax1.set_yticklabels(ax1.get_yticks(), weight='bold')
+    for axis in ['top','bottom','left','right']:
+        ax1.spines[axis].set_linewidth(3)
+    sns.boxplot(data=mets, x=column_name, width=.5, color='#069AF3', ax=ax2,
+                medianprops={'color':'k', 'linewidth':2},
+                whiskerprops={'color':'k', 'linewidth':2},
+                boxprops={'facecolor':'#069AF3', 
+                          'edgecolor':'k', 'linewidth':2},
+                capprops={'color':'k', 'linewidth':3}); 
+    ax2.tick_params(labelcolor='k', labelsize=10)
+    ax2.set(xlabel=unit_of_measure);
+    ax2.set_xticklabels(ax2.get_xticks(), fontweight='bold')
+    ax2.spines['bottom'].set_linewidth(2)
+    ax2.spines['top'].set_color(None)
+    ax2.spines['left'].set_color(None)
+    ax2.spines['right'].set_color(None)
+    plt.tight_layout();
+    plt.show()
+
+# Create a function to create a Count Plot
+def count_plot(column_name, label_order):
+    fig, ax = plt.subplots(nrows=1, figsize=(8,4), facecolor='w')
+    plt.title(column_name, fontsize = 22, weight='bold')
+    sns.countplot(data=mets, x=column_name, lw=3, ec='k', 
+                  color='#069AF3', order=label_order)
+    plt.xlabel('')
+    plt.xticks(weight='bold')
+    ax.set_ylabel('Instances', fontweight='bold', fontsize=18)
+    ax.set_facecolor('lightblue')
+    ax.tick_params(labelcolor='k', labelsize=12)
+    ax.set_yticklabels(ax.get_yticks(), weight='bold')
+    for axis in ['top','bottom','left','right']:
+        ax.spines[axis].set_linewidth(3)
+    plt.tight_layout()
+    plt.show()
+
+# Create a function to create a Count Plot
+# Sex and Age correlation to MetabolicSyndrome
+def scatter_plot(x,y, x_uom='', y_uom=''):
+    palette_dict = {'No MetSyn': 'indigo', 'MetSyn': 'magenta'}
+    fig, ax = plt.subplots(figsize=(8,4), facecolor='w')
+    sns.scatterplot(x=x, y=y, hue="Metabolic_Syndrome", 
+                    palette=palette_dict, data=mets);
+    plt.title(f'{x} and {y} \ncorrelation to Metabolic Syndrome', fontsize = 18, weight='bold')
+    plt.xlabel(f'{x} {x_uom}', fontsize = 14, weight='bold')
+    plt.ylabel(f'{y} {y_uom}', fontsize = 14, weight='bold');
+    plt.xticks(fontsize = 10, weight='bold')
+    plt.yticks(fontsize = 10, weight='bold');
+    ax.set_facecolor('lightblue')
+    for axis in ['top','bottom','left','right']:
+        ax.spines[axis].set_linewidth(3)
+    plt.legend(bbox_to_anchor=(1.23, 1))
+    plt.tight_layout()
+    plt.show()
+
+## Numerical Columns
+
+### summary statistics
+# Display the descriptive statistics for the numeric columns
+mets.describe().T.round(2)
+
+# Display histogram charts for the numeric columns in the dataframe
+mets.hist(figsize=(12,9), bins=30)
+plt.tight_layout()
+plt.show
+
+# Display column statistics
+mets['Age (yrs)'].describe().round(2)
+
+# Display supplemental column statistics
+column_statistics('Age (yrs)')
+
+# Utilize function to display histogram plot with a custom title
+hist_plot('Age (yrs)', 'years', 50)
+plt.title('Age Distribution', fontsize=22, weight='bold')
+plt.show()
+
+# Display column statistics
+mets['BMI(kg/m2)'].describe().round(2)
+
+# Display supplemental column statistics
+column_statistics('BMI(kg/m2)')
+
+# Utilize function to display histogram plot with a custom title
+hist_plot('BMI(kg/m2)', 'BMI(kg/m2)', 50)
+plt.title('BMI Distribution', fontsize=22, weight='bold')
+plt.show()
+
+# Utilize function to display histogram and boxplot
+hist_box_plot('BMI(kg/m2)', 'BMI(kg/m2)', 60)
+
+# Display supplemental column statistics
+column_statistics('Bp_Systolic (mmHg)')
+
+# Utilize function to display histogram plot
+hist_plot('Bp_Systolic (mmHg)', 'mmHg', 50)
+plt.title('Blood Pressure systolic Distribution', fontsize=22, weight='bold')
+plt.show()
+
+# Utilize function to display histogram and boxplot
+hist_box_plot('Bp_Systolic (mmHg)', 'mmHg', 60)
+
+# Display supplemental column statistics
+column_statistics('Bp_Diastolic (mmHg)')
+
+# Utilize function to display histogram plot
+hist_plot('Bp_Diastolic (mmHg)', 'mmHg', 50)
+plt.title('Blood Pressure Diastolic Distribution', fontsize=22, weight='bold')
+plt.show()
+
+# Utilize function to display histogram and boxplot
+hist_box_plot('Bp_Diastolic (mmHg)', 'mmHg', 60)
+
+# Check if the column exists in the dataframe
+if 'BP_Diastolic (mmHg)' in mets.columns:
+	# Calculate the IQR for the "BP_Diastolic (mmHg)" column
+	q1 = mets['BP_Diastolic (mmHg)'].quantile(0.25)
+	q3 = mets['BP_Diastolic (mmHg)'].quantile(0.75)
+	iqr = q3 - q1
+
+	# Define the lower and upper bounds for outliers
+	lower_bound = q1 - 1.5 * iqr
+	upper_bound = q3 + 1.5 * iqr
+
+	# Identify the outliers
+	outliers = mets[(mets['BP_Diastolic (mmHg)'] < lower_bound) | (mets['BP_Diastolic (mmHg)'] > upper_bound)]
+
+	# Display the outliers
+	print(outliers)
+else:
+	print("Column 'BP_Diastolic (mmHg)' does not exist in the dataframe.")
+
+# Rename Blood sugar to blood Glucose column
+mets.rename(columns={'Blood_Glucose (mmol/L)': 'Blood_Glucose (mmol/L)'}, inplace=True)
+
+# Display the updated column names to verify the change
+print(mets.columns)
+
+# Display column statistics
+mets['Blood_Glucose (mmol/L)'].describe().round(2)
+
+# Display supplemental column statistics
+column_statistics('Blood_Glucose (mmol/L)')
+
+# Utilize function to display histogram plot
+hist_plot('Blood_Glucose (mmol/L)', 'mmol/L', 50)
+
+# Utilize function to display histogram and boxplot
+hist_box_plot('Blood_Glucose (mmol/L)', 'Glucose(mmol/L)', 50)
+
+mets.describe().T.round(2)
+
+# Display column statistics
+mets['Triglycerides (mmol/L)'].describe().round(2)
+
+# Display supplemental column statistics
+column_statistics('Triglycerides (mmol/L)')
+
+# Utilize function to display histogram plot
+hist_plot('Triglycerides (mmol/L)', 'Trig(mmol/L)', 50)
+
+# Utilize function to display histogram and boxplot
+hist_box_plot('Triglycerides (mmol/L)', 'Trig(mmol/L)', 60)
+
+# Display column statistics
+mets['Cholesterol_HDL_(mmol/L)'].describe().round(2)
+
+# Display supplemental column statistics
+column_statistics('Cholesterol_HDL_(mmol/L)')
+
+# Utilize function to display histogram plot
+hist_plot('Cholesterol_HDL_(mmol/L)', 'HDL(mmol/L)', 50)
+
+# Utilize function to display histogram and boxplot
+hist_box_plot('Cholesterol_HDL_(mmol/L)', 'HDL(mmol/L)', 60)
+
+# Calculate the IQR for the "Cholesterol_HDL_(mmol/L)" column
+q1 = mets['Cholesterol_HDL_(mmol/L)'].quantile(0.25)
+q3 = mets['Cholesterol_HDL_(mmol/L)'].quantile(0.75)
+iqr = q3 - q1
+
+# Define the lower and upper bounds for outliers
+lower_bound = q1 - 1.5 * iqr
+upper_bound = q3 + 1.5 * iqr
+
+# Identify the outliers
+outliers = mets[(mets['Cholesterol_HDL_(mmol/L)'] < lower_bound) | (mets['Cholesterol_HDL_(mmol/L)'] > upper_bound)]
+
+# Display the outliers
+print(outliers)
+
+# Display the descriptive statistics for the non-numeric columns
+mets.describe(exclude=('number'))
+
+# Display column statistics
+mets.Sex.describe()
+
+# Display supplemental column statistics
+column_statistics('Sex')
+
+# Display normailzed value counts
+mets['Sex'].value_counts(normalize=True).round(2)
+
+# Utilize function to display count plot
+count_plot('Sex', ['female', 'male'])
+
+# Display column statistics
+mets['Regimen_Type'].describe()
+
+# Calculate value counts and their percentages
+drugcode_counts = mets['Regimen_Type'].value_counts()
+drugcode_percentages = mets['Regimen_Type'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+drugcode_summary = drugcode_counts.astype(str) + " (" + drugcode_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(drugcode_summary)
+
+# Utilize function to display count plot
+count_plot('Regimen_Type', ['TAFED', 'TLD', 'AZT+3TC+ATVr', 'AZT+3TC+LPVr'])
+
+# Calculate value counts and their percentages
+met_syd_counts = mets['Metabolic_Syndrome'].value_counts()
+met_syd_percentages = mets['Metabolic_Syndrome'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+met_syd_summary = met_syd_counts.astype(str) + " (" + met_syd_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(met_syd_summary)
+
+# Utilize function to display count plot
+count_plot('Metabolic_Syndrome', ['MetSyn', 'No MetSyn'])
+
+# Create a count plot for males and females with metabolic syndrome
+sns.countplot(data=mets, x='Sex', hue='Metabolic_Syndrome', palette='Set1')
+plt.title('Count of Males and Females with Metabolic Syndrome', fontsize=16, weight='bold')
+plt.xlabel('Gender', fontsize=14, weight='bold')
+plt.ylabel('Count', fontsize=14, weight='bold')
+plt.xticks(weight='bold')
+plt.yticks(weight='bold')
+plt.legend(title='Metabolic Syndrome', title_fontsize='13', fontsize='12')
+plt.show()
+
+sns.countplot(y='Regimen_Type', hue='Metabolic_Syndrome', data = mets)
+
+# Calculate value counts and their percentages
+education_counts = mets['Educational_Level'].value_counts()
+education_percentages = mets['Educational_Level'].value_counts(normalize=True) * 100
+
+# Combine counts and percentages into a single string
+education_summary = education_counts.astype(str) + " (" + education_percentages.round(2).astype(str) + "%)"
+
+# Display the result
+print(education_summary)
+
+# Utilize function to display count plot
+count_plot('Educational_Level', ['primary', 'secondary', 'Terciary', 'Unknown', 'none'])
+
+# Display Display column column statistics statistics
+mets['Alcohol_Consuption'].describe()
+
+# Calculate the total number of Alcohol_use
+total_alcohol_use = alcohol_counts.sum()
+
+# Format the summary with brackets in percentage
+alcohol_summary = alcohol_counts.astype(str) + " (" + alcohol_percentages.round(2).astype(str) + "%)"
+
+# Display the total number and the formatted summary
+print(f"Total Alcohol Use: {total_alcohol_use}")
+print(alcohol_summary)
+
+# Utilize function to display count plot
+count_plot('Alcohol_Consuption', ['no', 'yes', 'Unknown'])
+
+# Display column statistics
+mets['Tobbacco_Use'].describe()
+
+# Calculate the total number of Tabbacco_use
+total_tabbacco_use = tabacco_counts.sum()
+
+# Format the summary with brackets in percentage
+tabacco_summary = tabacco_counts.astype(str) + " (" + tabacco_percentages.round(2).astype(str) + "%)"
+
+# Display the total number and the formatted summary
+print(f"Total Tabbacco Use: {total_tabbacco_use}")
+print(tabacco_summary)
 
 ```
 
