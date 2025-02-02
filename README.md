@@ -1647,6 +1647,465 @@ ran_for.fit(X_train_processed, y_train)
 ran_for_train_preds = ran_for.predict(X_train_processed)
 ran_for_test_preds = ran_for.predict(X_test_processed)
 
+# Scores
+# Accuracy Scores for RF
+# Calculate classification accuracy scores
+ran_for_train_accuracy = ran_for.score(X_train_processed, y_train)
+ran_for_test_accuracy = ran_for.score(X_test_processed, y_test)
+# Print classification accuracy scores
+print(f'Random Forest Train Accuracy Score: {ran_for_train_accuracy}')
+print(f'Random Forest Test Accuracy Score: {ran_for_test_accuracy}')
+
+### Recall scores for RF
+# Calculate classification recall scores
+ran_for_train_recall = recall_score(y_train, ran_for_train_preds, pos_label=1)
+ran_for_test_recall = recall_score(y_test, ran_for_test_preds, pos_label=1)
+# Print classification recall scores
+print(f'Random Forest Train Recall Score = {ran_for_train_recall}')
+print(f'Random Forest Test Recall Score = {ran_for_test_recall}')
+
+### Precision scores for RF
+# Calculate classification precision scores
+ran_for_train_precision = precision_score(y_train, ran_for_train_preds, pos_label=1)
+ran_for_test_precision = precision_score(y_test, ran_for_test_preds, pos_label=1)
+# Print classification recall scores
+print(f'Random Forest Train Precision Score = {ran_for_train_precision}')
+print(f'Random Forest Test Precision Score = {ran_for_test_precision}')
+
+### AUC for RF
+# Calculate AUC scores
+ran_for_train_auc = roc_auc_score(y_train, ran_for.predict_proba(X_train_processed)[:,1])
+ran_for_test_auc = roc_auc_score(y_test, ran_for.predict_proba(X_test_processed)[:,1])
+# Display AUC scores
+print(f'Random Forest Train AUC: {ran_for_train_auc}')
+print(f'Random Forest Test AUC: {ran_for_test_auc}')
+
+### Model Comparision
+### confusion Matrix
+
+# Make an instance of the best L1 tuned Logistic Regression model
+best_l1_log_reg = LogisticRegression(C=0.1, max_iter=1000, solver='liblinear', penalty='l1')
+best_l1_log_reg_pipe = make_pipeline(best_l1_log_reg)
+best_l1_log_reg_pipe.fit(X_train_processed, y_train)
+
+# Predictions from Best L1 Tuned Logistics Regression Model
+log_reg_l1_train_preds = best_l1_log_reg_pipe.predict(X_train_processed)
+log_reg_l1_test_preds = best_l1_log_reg_pipe.predict(X_test_processed)
+
+# Calculate the Confusion Matrices
+knn_confusion_matrix = confusion_matrix(y_test, knn_test_preds)
+l1_log_reg_confusion_matrix = confusion_matrix(y_test, log_reg_l1_test_preds)
+l2_log_reg_confusion_matrix = confusion_matrix(y_test, log_reg_l2_test_preds)
+ran_for_confusion_matrix = confusion_matrix(y_test, ran_for_test_preds)
+
+# Display the Confusion Matrices
+print(f'KNN Confusion Matrix:\n {knn_confusion_matrix}')
+print('\n')
+print(f'L1 Tuned Logistics Regression Confusion Matrix:\n {l1_log_reg_confusion_matrix}')
+print('\n')
+print(f'L2 Tuned Logistics Regression Confusion Matrix:\n {l2_log_reg_confusion_matrix}')
+print('\n')
+print(f'Random Forest Confusion Matrix:\n {ran_for_confusion_matrix}')
+
+# Convert 'MetSyn'/'No MetSyn' to 1/0 for y_test and predictions
+y_test_binary = y_test.map({'MetSyn': 1, 'No MetSyn': 0}).fillna(0).values
+knn_test_preds_binary = np.where(knn_test_preds == 'MetSyn', 1, 0)
+dt_test_preds_binary = np.where(dt_test_preds == 'MetSyn', 1, 0)
+gnb_test_preds_binary = np.where(gnb_test_preds == 'MetSyn', 1, 0)
+svm_test_preds_binary = np.where(svm_test_preds == 'MetSyn', 1, 0)
+xgb_test_preds_binary = np.where(xgb_test_preds == 'MetSyn', 1, 0)
+log_reg_l1_test_preds_binary = np.where(log_reg_l1_test_preds == 'MetSyn', 1, 0)
+log_reg_l2_test_preds_binary = np.where(log_reg_l2_test_preds == 'MetSyn', 1, 0)
+ran_for_test_preds_binary = np.where(ran_for_test_preds == 'MetSyn', 1, 0)
+
+# Calculate the Confusion Matrices
+knn_confusion_matrix = confusion_matrix(y_test_binary, knn_test_preds_binary)
+decision_tree_confusion_matrix = confusion_matrix(y_test_binary, dt_test_preds_binary)
+gnb_confusion_matrix = confusion_matrix(y_test_binary, gnb_test_preds_binary)
+svm_confusion_matrix = confusion_matrix(y_test_binary, svm_test_preds_binary)
+xgb_confusion_matrix = confusion_matrix(y_test_binary, xgb_test_preds_binary)
+l1_log_reg_confusion_matrix = confusion_matrix(y_test_binary, log_reg_l1_test_preds_binary)
+l2_log_reg_confusion_matrix = confusion_matrix(y_test_binary, log_reg_l2_test_preds_binary)
+ran_for_confusion_matrix = confusion_matrix(y_test_binary, ran_for_test_preds_binary)
+
+# Display the normalized Confusion Matrices
+print(f'KNN Confusion Matrix:\n {knn_confusion_matrix}')
+print('\n')
+print(f'Decision Tree Confusion Matrix:\n {decision_tree_confusion_matrix}')
+print('\n')
+print(f'SVM Confusion Matrix:\n {svm_confusion_matrix}')
+print('\n')
+print(f'XGBoost Confusion Matrix:\n {xgb_confusion_matrix}')
+print('\n')
+print(f'Gaussian Naive Bayes Confusion Matrix:\n {gnb_confusion_matrix}')
+print('\n')
+print(f'L1 Tuned Logistics Regression Confusion Matrix:\n {l1_log_reg_confusion_matrix}')
+print('\n')
+print(f'L2 Tuned Logistics Regression Confusion Matrix:\n {l2_log_reg_confusion_matrix}')
+print('\n')
+print(f'Random Forest Confusion Matrix:\n {ran_for_confusion_matrix}')
+
+### Confusion Matrix Normalized
+
+# Calculate the normalized Confusion Reports.
+knn_confusion_matrix = confusion_matrix(y_test, knn_test_preds, normalize = 'true')
+decision_tree_confusion_matrix = confusion_matrix(y_test, knn_test_preds, normalize = 'true')
+svm_confusion_matrix = confusion_matrix(y_test, knn_test_preds, normalize = 'true')
+xgb_confusion_matrix = confusion_matrix(y_test, knn_test_preds, normalize = 'true')
+gnb_confusion_matrix = confusion_matrix(y_test, knn_test_preds, normalize = 'true')
+l1_log_reg_confusion_matrix = confusion_matrix(y_test, log_reg_l1_test_preds, normalize = 'true')
+l2_log_reg_confusion_matrix = confusion_matrix(y_test, log_reg_l2_test_preds, normalize = 'true')
+ran_for_confusion_matrix = confusion_matrix(y_test, ran_for_test_preds, normalize = 'true')
+# Display the normalized Confusion Reports.
+print(f'KNN Confusion Matrix:\n {knn_confusion_matrix}')
+print('\n')
+print(f'L1 Tuned Logistics Regression Confusion Matrix:\n {l1_log_reg_confusion_matrix}')
+print('\n')
+print(f'L2 Tuned Logistics Regression Confusion Matrix:\n {l2_log_reg_confusion_matrix}')
+print('\n')
+print(f'decision_tree Confusion Matrix:\n {decision_tree_confusion_matrix}')
+print('\n')
+print(f'gnb Confusion Matrix:\n {gnb_confusion_matrix}')
+print('\n')
+print(f'svm Confusion Matrix:\n {svm_confusion_matrix}')
+print('\n')
+print(f'xgb Confusion Matrix:\n {xgb_confusion_matrix}')
+print('\n')
+print(f'Random Forest Confusion Matrix:\n {ran_for_confusion_matrix}')
+
+# Display the KNN Model confusion matrix.
+ConfusionMatrixDisplay.from_estimator(best_knn, 
+                                      X_test_processed, 
+                                      y_test, 
+                                      cmap='Blues', 
+                                      normalize='true');
+
+# Display the L1 tuned Logistics Model confusion matrix.
+ConfusionMatrixDisplay.from_estimator(best_l1_log_reg_pipe, 
+                                      X_test_processed, 
+                                      y_test, cmap='Blues', 
+                                      normalize='true');
+
+# Display the L2 tuned Logistics Model confusion matrix.
+ConfusionMatrixDisplay.from_estimator(best_l2_log_reg_pipe, 
+                                      X_test_processed, 
+                                      y_test, 
+                                      cmap='Blues', 
+                                      normalize='true')
+
+# Display the Random Forest Model confusion matrix.
+ConfusionMatrixDisplay.from_estimator(ran_for, 
+                                      X_test_processed, 
+                                      y_test, 
+                                      cmap='Blues', 
+                                      normalize='true');
+
+# Display the Decision Tree Model confusion matrix.
+ConfusionMatrixDisplay.from_estimator(decision_tree, 
+                                      X_test_processed, 
+                                      y_test, 
+                                      cmap='Blues', 
+                                      normalize='true');
+
+# Display the Support Vector Machine Model confusion matrix.
+ConfusionMatrixDisplay.from_estimator(svm, 
+                                      X_test_processed, 
+                                      y_test, 
+                                      cmap='Blues', 
+                                      normalize='true');
+
+# Display the XGBoost Model confusion matrix.
+ConfusionMatrixDisplay.from_predictions(y_test_binary, 
+                                        xgb.predict(X_test_processed), 
+                                        cmap='Blues', 
+                                        normalize='true');
+
+# Display the Gaussian Naive Bayes Model confusion matrix.
+ConfusionMatrixDisplay.from_estimator(gnb, 
+                                      X_test_processed, 
+                                      y_test, 
+                                      cmap='Blues', 
+                                      normalize='true');
+### Classification Reports
+
+# Calculate the Classification Reports.
+knn_classification_report = classification_report(y_test, knn_test_preds)
+best_l1_log_reg_report = classification_report(y_test, log_reg_l1_test_preds)
+best_l2_log_reg_report = classification_report(y_test, log_reg_l2_test_preds)
+ran_for_classification_report = classification_report(y_test, ran_for_test_preds)
+# Display the Classification Reports.
+print('\n')
+print(f'KNN Model Classification Report \n{knn_classification_report}');
+print('\n')
+print(f'Random Forest Model Classification Report \n{ran_for_classification_report}');
+print('\n')
+print(f'L1 Tuned Logistics Classification Report \n{best_l1_log_reg_report}');
+print('\n')
+print(f'L2 Tuned Logistics Classification Report \n{best_l2_log_reg_report}');
+
+from sklearn.metrics import classification_report
+
+# Convert true labels to numeric format
+y_test_numeric = np.where(y_test == 'MetSyn', 1, 0)
+
+# Calculate the Classification Reports.
+knn_classification_report = classification_report(y_test_numeric, knn_test_preds)
+best_l1_log_reg_report = classification_report(y_test_numeric, log_reg_l1_test_preds)
+best_l2_log_reg_report = classification_report(y_test_numeric, log_reg_l2_test_preds)
+ran_for_classification_report = classification_report(y_test_numeric, ran_for_test_preds)
+svm_classification_report = classification_report(y_test_numeric, svm_test_preds)
+xgb_classification_report = classification_report(y_test_numeric, xgb_test_preds)
+gnb_classification_report = classification_report(y_test_numeric, gnb_test_preds)
+decision_tree_classification_report = classification_report(y_test_numeric, dt_test_preds)
+
+# Display the Classification Reports.
+print('\n')
+print(f'KNN Model Classification Report \n{knn_classification_report}');
+print('\n')
+print(f'Random Forest Model Classification Report \n{ran_for_classification_report}');
+print('\n')
+print(f'SVM Model Classification Report \n{svm_classification_report}');
+print('\n')
+print(f'XGBoost Model Classification Report \n{xgb_classification_report}');
+print('\n')
+print(f'Gaussian Naive Bayes Model Classification Report \n{gnb_classification_report}');
+print('\n')
+print(f'Decision Tree Model Classification Report \n{decision_tree_classification_report}');
+print('\n')
+print(f'L1 Tuned Logistics Classification Report \n{best_l1_log_reg_report}');
+print('\n')
+print(f'L2 Tuned Logistics Classification Report \n{best_l2_log_reg_report}');
+
+# Calculate KNN model accuracy scores
+knn_train_accuracy = knn.score(X_train_processed, y_train)
+knn_test_accuracy = knn.score(X_test_processed, y_test)
+
+# Calculate accuracy scores for the best L1 tuned Logistic Regression model
+log_reg_l1_train_accuracy = best_l1_log_reg_pipe.score(X_train_processed, y_train)
+log_reg_l1_test_accuracy = best_l1_log_reg_pipe.score(X_test_processed, y_test)
+
+# Convert true labels to numeric format
+y_train_numeric = np.where(y_train == 'MetSyn', 1, 0)
+y_test_numeric = np.where(y_test == 'MetSyn', 1, 0)
+
+# Calculate recall scores for the best L1 tuned Logistic Regression model
+log_reg_l1_train_recall = recall_score(y_train_numeric, log_reg_l1_train_preds, pos_label=1)
+log_reg_l1_test_recall = recall_score(y_test_numeric, log_reg_l1_test_preds, pos_label=1)
+
+# Calculate precision scores for the best L1 tuned Logistic Regression model
+log_reg_l1_train_precision = precision_score(y_train_numeric, log_reg_l1_train_preds, pos_label=1)
+log_reg_l1_test_precision = precision_score(y_test_numeric, log_reg_l1_test_preds, pos_label=1)
+
+# Calculate AUC scores for the best L1 tuned Logistic Regression model
+log_reg_l1_train_auc = roc_auc_score(y_train, best_l1_log_reg_pipe.predict_proba(X_train_processed)[:,1])
+log_reg_l1_test_auc = roc_auc_score(y_test, best_l1_log_reg_pipe.predict_proba(X_test_processed)[:,1])
+
+# Initialize data in a dictionary series
+model_summary_index = ['KNN',
+                       'Logistics Regression L1 tuned', 
+                               'Logistics Regression L2 tuned', 
+                               'Random Forest']
+d = {'Accuracy Score Train' : pd.Series([knn_train_accuracy,
+                                         log_reg_l1_train_accuracy, 
+                                         log_reg_l2_train_accuracy, 
+                                         ran_for_train_accuracy],
+                       index = model_summary_index),
+     'Accuracy Score Test' : pd.Series([knn_test_accuracy,
+                                        log_reg_l1_test_accuracy, 
+                                        log_reg_l2_test_accuracy, 
+                                        ran_for_test_accuracy],
+                       index = model_summary_index),
+     'Recall Score Train' : pd.Series([knn_train_recall,
+                                       log_reg_l1_train_recall, 
+                                       log_reg_l2_train_recall, 
+                                       ran_for_train_recall],
+                       index = model_summary_index),
+     'Recall Score Test' : pd.Series([knn_test_recall,
+                                      log_reg_l1_test_recall, 
+                                      log_reg_l2_test_recall, 
+                                      ran_for_test_recall],
+                       index = model_summary_index),
+     'Precision Score Train' : pd.Series([knn_train_precision,
+                                          log_reg_l1_train_precision, 
+                                          log_reg_l2_train_precision, 
+                                          ran_for_train_precision],
+                       index = model_summary_index),
+     'Precision Score Test' : pd.Series([knn_test_precision,
+                                         log_reg_l1_test_precision, 
+                                         log_reg_l2_test_precision, 
+                                         ran_for_test_precision],
+                       index = model_summary_index),
+     'AUC Score Train' : pd.Series([knn_train_auc,
+                                    log_reg_l1_train_auc, 
+                                    log_reg_l2_train_auc, 
+                                    ran_for_train_auc],
+                       index = model_summary_index),
+     'AUC Score Test' : pd.Series([knn_test_auc,
+                                   log_reg_l1_test_auc, 
+                                   log_reg_l2_test_auc, 
+                                   ran_for_test_auc],
+                       index = model_summary_index),
+     'F1 Macro Average' : pd.Series([.77,.81, .81, .87],
+                       index = model_summary_index),
+     'F1 Weighted Average' : pd.Series([.80, .83, .83, .88],
+                       index = model_summary_index)}
+from sklearn.metrics import f1_score
+
+# Convert predictions to match the true labels format (1/0)
+knn_test_preds_labels = np.where(knn_test_preds == 1, 1, 0)
+log_reg_l1_test_preds_labels = np.where(log_reg_l1_test_preds == 1, 1, 0)
+log_reg_l2_test_preds_labels = np.where(log_reg_l2_test_preds == 1, 1, 0)
+ran_for_test_preds_labels = np.where(ran_for_test_preds == 1, 1, 0)
+svm_test_preds_labels = np.where(svm_test_preds == 1, 1, 0)
+xgb_test_preds_labels = np.where(xgb_test_preds == 1, 1, 0)
+gnb_test_preds_labels = np.where(gnb_test_preds == 1, 1, 0)
+dt_test_preds_labels = np.where(dt_test_preds == 1, 1, 0)
+
+# Initialize data in a dictionary series for all models
+model_summary_index = ['KNN', 'Logistics Regression L1 tuned', 'Logistics Regression L2 tuned', 'Random Forest', 'Decision Tree', 'Gaussian Naive Bayes', 'SVM', 'XGBoost']
+
+# Ensure the previous cells are executed to define these variables
+knn_train_accuracy = knn.score(X_train_processed, y_train)
+knn_test_accuracy = knn.score(X_test_processed, y_test)
+log_reg_l1_train_accuracy = best_l1_log_reg_pipe.score(X_train_processed, y_train)
+log_reg_l1_test_accuracy = best_l1_log_reg_pipe.score(X_test_processed, y_test)
+log_reg_l2_train_accuracy = best_l2_log_reg_pipe.score(X_train_processed, y_train)
+log_reg_l2_test_accuracy = best_l2_log_reg_pipe.score(X_test_processed, y_test)
+ran_for_train_accuracy = ran_for.score(X_train_processed, y_train)
+ran_for_test_accuracy = ran_for.score(X_test_processed, y_test)
+dt_train_accuracy = decision_tree.score(X_train_processed, y_train)
+dt_test_accuracy = decision_tree.score(X_test_processed, y_test)
+gnb_train_accuracy = gnb.score(X_train_processed, y_train)
+gnb_test_accuracy = gnb.score(X_test_processed, y_test)
+svm_train_accuracy = svm.score(X_train_processed, y_train)
+svm_test_accuracy = svm.score(X_test_processed, y_test)
+xgb_train_accuracy = xgb.score(X_train_processed, y_train)
+xgb_test_accuracy = xgb.score(X_test_processed, y_test)
+
+# Convert true labels to numeric format
+y_train_numeric = np.where(y_train == 'MetSyn', 1, 0)
+y_test_numeric = np.where(y_test == 'MetSyn', 1, 0)
+
+# Calculate recall scores for the best L1 tuned Logistic Regression model
+log_reg_l1_train_recall = recall_score(y_train_numeric, log_reg_l1_train_preds)
+log_reg_l1_test_recall = recall_score(y_test_numeric, log_reg_l1_test_preds)
+log_reg_l1_train_precision = precision_score(y_train_numeric, log_reg_l1_train_preds)
+log_reg_l1_test_precision = precision_score(y_test_numeric, log_reg_l1_test_preds)
+
+# Calculate AUC scores for the best L1 tuned Logistic Regression model
+log_reg_l1_train_auc = roc_auc_score(y_train_numeric, best_l1_log_reg_pipe.predict_proba(X_train_processed)[:,1])
+log_reg_l1_test_auc = roc_auc_score(y_test_numeric, best_l1_log_reg_pipe.predict_proba(X_test_processed)[:,1])
+
+d = {
+    'Accuracy Score Train': pd.Series([knn_train_accuracy, log_reg_l1_train_accuracy, log_reg_l2_train_accuracy, ran_for_train_accuracy, dt_train_accuracy, gnb_train_accuracy, svm_train_accuracy, xgb_train_accuracy], index=model_summary_index),
+    'Accuracy Score Test': pd.Series([knn_test_accuracy, log_reg_l1_test_accuracy, log_reg_l2_test_accuracy, ran_for_test_accuracy, dt_test_accuracy, gnb_test_accuracy, svm_test_accuracy, xgb_test_accuracy], index=model_summary_index),
+    'Recall Score Train': pd.Series([knn_train_recall, log_reg_l1_train_recall, log_reg_l2_train_recall, ran_for_train_recall, dt_train_recall, gnb_train_recall, svm_train_recall, xgb_train_recall], index=model_summary_index),
+    'Recall Score Test': pd.Series([knn_test_recall, log_reg_l1_test_recall, log_reg_l2_test_recall, ran_for_test_recall, dt_test_recall, gnb_test_recall, svm_test_recall, xgb_test_recall], index=model_summary_index),
+    'Precision Score Train': pd.Series([knn_train_precision, log_reg_l1_train_precision, log_reg_l2_train_precision, ran_for_train_precision, dt_train_precision, gnb_train_precision, svm_train_precision, xgb_train_precision], index=model_summary_index),
+    'Precision Score Test': pd.Series([knn_test_precision, log_reg_l1_test_precision, log_reg_l2_test_precision, ran_for_test_precision, dt_test_precision, gnb_test_precision, svm_test_precision, xgb_test_precision], index=model_summary_index),
+    'AUC Score Train': pd.Series([knn_train_auc, log_reg_l1_train_auc, log_reg_l2_train_auc, ran_for_train_auc, dt_train_auc, gnb_train_auc, svm_train_auc, xgb_train_auc], index=model_summary_index),
+    'AUC Score Test': pd.Series([knn_test_auc, log_reg_l1_test_auc, log_reg_l2_test_auc, ran_for_test_auc, dt_test_auc, gnb_test_auc, svm_test_auc, xgb_test_auc], index=model_summary_index),
+    'F1 Macro Average': pd.Series([f1_score(y_test_numeric, knn_test_preds_labels, average='macro'), f1_score(y_test_numeric, log_reg_l1_test_preds_labels, average='macro'), f1_score(y_test_numeric, log_reg_l2_test_preds_labels, average='macro'), f1_score(y_test_numeric, ran_for_test_preds_labels, average='macro'), f1_score(y_test_numeric, dt_test_preds_labels, average='macro'), f1_score(y_test_numeric, gnb_test_preds_labels, average='macro'), f1_score(y_test_numeric, svm_test_preds_labels, average='macro'), f1_score(y_test_numeric, xgb_test_preds_labels, average='macro')], index=model_summary_index),
+    'F1 Weighted Average': pd.Series([f1_score(y_test_numeric, knn_test_preds_labels, average='weighted'), f1_score(y_test_numeric, log_reg_l1_test_preds_labels, average='weighted'), f1_score(y_test_numeric, log_reg_l2_test_preds_labels, average='weighted'), f1_score(y_test_numeric, ran_for_test_preds_labels, average='weighted'), f1_score(y_test_numeric, dt_test_preds_labels, average='weighted'), f1_score(y_test_numeric, gnb_test_preds_labels, average='weighted'), f1_score(y_test_numeric, svm_test_preds_labels, average='weighted'), f1_score(y_test_numeric, xgb_test_preds_labels, average='weighted')], index=model_summary_index)
+}
+
+# Convert dictionary to DataFrame
+model_summary_df = pd.DataFrame(d)
+print(model_summary_df)
+
+# Display the dataframe
+model_summary_df
+
+# Plot the dataframe
+model_summary_df.plot(kind='bar', figsize=(15, 8))
+plt.title('Model Comparison')
+plt.xlabel('Metrics')
+plt.ylabel('Scores')
+plt.legend(loc='best')
+plt.show()
+
+from IPython.display import display
+
+# Display the dataframe
+display(model_summary_df)
+
+# Display line plot of scores
+fig, ax = plt.subplots(nrows=1, figsize=(18,10), facecolor='w')
+ax.set_facecolor('lightblue')
+plt.title('Accuracy Scores', fontsize = 22, weight='bold')
+sns.lineplot(data=model_summary_df['Accuracy Score Train'], color="indigo", linewidth=3, markersize=10, marker='o', label='Train');
+sns.lineplot(data=model_summary_df['Accuracy Score Test'], color="magenta", linewidth=3, markersize=10, marker='o', label='Test');
+plt.xlabel('Model', fontsize = 16, weight='bold')
+plt.xticks(weight='bold')
+ax.set_ylabel('Score', fontweight='bold', fontsize=14)
+ax.set_ylim(.75, 1.05)
+ax.tick_params(labelcolor='k', labelsize=8)
+ax.set_yticklabels(ax.get_yticks(), weight='bold')
+for axis in ['top','bottom','left','right']:
+    ax.spines[axis].set_linewidth(3);
+format = StrMethodFormatter('{x:.2f}') 
+ax.yaxis.set_major_formatter(format);
+
+# Display line plot of scores
+fig, ax = plt.subplots(nrows=1, figsize=(16,10), facecolor='w')
+ax.set_facecolor('lightblue')
+plt.title('Precision Scores', fontsize = 22, weight='bold')
+sns.lineplot(data=model_summary_df['Precision Score Train'], color="indigo", linewidth=3, markersize=10, marker='o', label='Train');
+sns.lineplot(data=model_summary_df['Precision Score Test'], color="magenta", linewidth=3, markersize=10, marker='o', label='Test');
+plt.xlabel('Model', fontsize = 16, weight='bold')
+plt.xticks(weight='bold')
+ax.set_ylabel('Score', fontweight='bold', fontsize=14)
+ax.set_ylim(.75, 1.05)
+ax.tick_params(labelcolor='k', labelsize=8)
+ax.set_yticklabels(ax.get_yticks(), weight='bold')
+for axis in ['top','bottom','left','right']:
+    ax.spines[axis].set_linewidth(3);
+format = StrMethodFormatter('{x:.2f}') 
+ax.yaxis.set_major_formatter(format);
+
+# Display line plot of scores
+fig, ax = plt.subplots(nrows=1, figsize=(10,4), facecolor='w')
+ax.set_facecolor('lightblue')
+plt.title('Recall Scores', fontsize = 22, weight='bold')
+sns.lineplot(data=model_summary_df['Recall Score Train'], color="indigo", linewidth=3, markersize=10, marker='o', label='Train');
+sns.lineplot(data=model_summary_df['Recall Score Test'], color="magenta", linewidth=3, markersize=10, marker='o', label='Test');
+plt.xlabel('Model', fontsize = 16, weight='bold')
+plt.xticks(weight='bold')
+ax.set_ylabel('Score', fontweight='bold', fontsize=14)
+ax.set_ylim(.5, 1.05)
+ax.tick_params(labelcolor='k', labelsize=8)
+ax.set_yticklabels(ax.get_yticks(), weight='bold')
+for axis in ['top','bottom','left','right']:
+    ax.spines[axis].set_linewidth(3);
+format = StrMethodFormatter('{x:.2f}') 
+ax.yaxis.set_major_formatter(format);
+
+# Display line plot of scores
+fig, ax = plt.subplots(nrows=1, figsize=(10,4), facecolor='w')
+ax.set_facecolor('lightblue')
+plt.title('AUC Scores', fontsize = 22, weight='bold')
+sns.lineplot(data=model_summary_df['AUC Score Train'], color="indigo", linewidth=3, markersize=10, marker='o', label='Train');
+sns.lineplot(data=model_summary_df['AUC Score Test'], color="magenta", linewidth=3, markersize=10, marker='o', label='Test');
+plt.xlabel('Model', fontsize = 16, weight='bold')
+plt.xticks(weight='bold')
+ax.set_ylabel('Score', fontweight='bold', fontsize=14)
+ax.set_ylim(.80, 1.05)
+ax.tick_params(labelcolor='k', labelsize=8)
+ax.set_yticklabels(ax.get_yticks(), weight='bold')
+for axis in ['top','bottom','left','right']:
+    ax.spines[axis].set_linewidth(3);
+format = StrMethodFormatter('{x:.2f}') 
+ax.yaxis.set_major_formatter(format)
+
+# Display the dataframe with model comparison
+display(model_summary_df)
+
+# Identify the best model based on the highest test accuracy score
+best_model = model_summary_df['Accuracy Score Test'].idxmax()
+best_model_score = model_summary_df['Accuracy Score Test'].max()
+
+print(f'The best model to predict metabolic syndrome is: {best_model} with an accuracy score of {best_model_score:.4f}')
+
 
 
 
