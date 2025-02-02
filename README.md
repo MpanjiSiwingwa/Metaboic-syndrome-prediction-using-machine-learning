@@ -1289,6 +1289,363 @@ print(f'KNN Train AUC: {knn_train_auc}')
 print(f'KNN Test AUC: {knn_test_auc}')
 
 ## Logistic Regression Model
+# instantiate Logistic Regression Model
+# Make an instance of the model
+logreg = LogisticRegression(C = 1000)
+
+### Create the Pipeline
+# Create pipeline
+logreg_pipe = make_pipeline(logreg)
+
+### Fit and Train the Model on the Data
+# Fit the model
+logreg_pipe.fit(X_train_processed,y_train)
+
+### Print Training Scores
+# Fit the model (ensure the model is fitted before scoring)
+logreg_pipe.fit(X_train_processed, y_train)
+
+# Print Scores
+print(logreg_pipe.score(X_train_processed, y_train))
+print(logreg_pipe.score(X_test_processed, y_test))
+
+### Hyperparameter Tuning
+### L1 Tuning
+### Wideband Tuning
+# Create a list of C values and empty lists for accuracy scores
+c_values = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
+train_scores = []
+test_scores = []
+ 
+# Create a loop to iterative over the C values list
+for c in c_values:
+ 
+  # Instantiate and Fit the Model on the data
+  log_reg = LogisticRegression(C=c, 
+                               max_iter=1000, 
+                               solver='liblinear', 
+                               penalty='l1')
+  log_reg_pipe = make_pipeline(log_reg)
+  log_reg_pipe.fit(X_train_processed, y_train)
+ 
+  # Add the Train and Test Scores to our Scores Lists
+  train_scores.append(log_reg_pipe.score(X_train_processed, y_train))
+  test_scores.append(log_reg_pipe.score(X_test_processed, y_test))
+ 
+# Plot the Accuracy Scores for the C Values
+fig, ax = plt.subplots(1,1)
+ax.plot(c_values, train_scores, label='Training Accuracy')
+ax.plot(c_values, test_scores, label='Testing Accuracy')
+ax.set_xticks(c_values)
+ax.set_title('Change in accuracy over C values for l1 regularization')
+ax.legend()
+ 
+# Set the X Axis to a logarithmic Scale
+ax.set_xscale('log')
+
+# Print a Dictionary for C Values and Accuracy Scores
+{c:score for c, score in zip(c_values, test_scores)}
+
+### Fine Tuning
+# Create a list of C values and empty lists for accuracy scores
+c_values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50]
+train_scores = []
+test_scores = []
+ 
+# Create a loop to iterative over the C values list
+for c in c_values:
+ 
+  # Instantiate and Fit the Model on the data
+  log_reg = LogisticRegression(C=c, 
+                               max_iter=1000, 
+                               solver='liblinear', 
+                               penalty='l1')
+  log_reg_pipe = make_pipeline(log_reg)
+  log_reg_pipe.fit(X_train_processed, y_train)
+ 
+  # Add the Train and Test Scores to our Scores Lists
+  train_scores.append(log_reg_pipe.score(X_train_processed, y_train))
+  test_scores.append(log_reg_pipe.score(X_test_processed, y_test))
+ 
+# Plot the Accuracy Scores for the C Values
+fig, ax = plt.subplots(1,1)
+ax.plot(c_values, train_scores, label='Training Accuracy')
+ax.plot(c_values, test_scores, label='Testing Accuracy')
+ax.set_xticks(c_values)
+ax.set_title('Change in accuracy over C values for l1 regularization')
+ax.legend()
+ 
+# Set the X Axis to a logarithmic Scale
+ax.set_xscale('log')
+
+# Print a Dictionary for C Values and Accuracy Scores
+{c:score for c, score in zip(c_values, test_scores)}
+
+### Best L2 Tuned Logistics Regression Model
+best_l2_log_reg = LogisticRegression(C=.020, 
+                                     max_iter=1000, 
+                                     solver='liblinear', 
+                                     penalty='l2')
+best_l2_log_reg_pipe = make_pipeline(best_l2_log_reg)
+best_l2_log_reg_pipe.fit(X_train_processed, y_train)
+
+### Predictions
+# Predictions from Best L2 Tuned Logistics Regression Model
+log_reg_l2_train_preds = best_l2_log_reg_pipe.predict(X_train_processed)
+log_reg_l2_test_preds = best_l2_log_reg_pipe.predict(X_test_processed)
+
+### Scores
+### Accuracy Scores
+# Calculate classification accuracy scores
+log_reg_l2_train_accuracy = best_l2_log_reg_pipe.score(X_train_processed, y_train)
+log_reg_l2_test_accuracy = best_l2_log_reg_pipe.score(X_test_processed, y_test)
+# Print classification accuracy scores
+print(f'Logistics Regression L2 tuned Train Accuracy Score: {log_reg_l2_train_accuracy}')
+print(f'Logistics Regression L2 tuned Test Accuracy Score: {log_reg_l2_test_accuracy}')
+
+### Recall Scores
+# Calculate classification recall scores
+log_reg_l2_train_recall = recall_score(y_train, log_reg_l2_train_preds, pos_label=1)
+log_reg_l2_test_recall = recall_score(y_test, log_reg_l2_test_preds, pos_label=1)
+# Print recall scores
+print(f'Logistics Regression L2 tuned Train Recall Score: {log_reg_l2_train_recall}')
+print(f'Logistics Regression L2 tuned Test Recall Score: {log_reg_l2_test_recall}')
+
+### Precision Scores
+# Calculate classification recall scores
+log_reg_l2_train_precision = precision_score(y_train, log_reg_l2_train_preds, pos_label=1)
+log_reg_l2_test_precision = precision_score(y_test, log_reg_l2_test_preds, pos_label=1)
+# Display recall scores
+print(f'Logistics Regression L2 tuned Train Precision Score: {log_reg_l2_train_precision:.4f}}}')
+print(f'Logistics Regression L2 tuned Test Precision Score: {log_reg_l2_test_precision:.4f}}}')
+
+## AUC scores
+# Calculate AUC scores
+log_reg_l2_train_auc = roc_auc_score(y_train, best_l2_log_reg_pipe.predict_proba(X_train_processed)[:,1])
+log_reg_l2_test_auc = roc_auc_score(y_test, best_l2_log_reg_pipe.predict_proba(X_test_processed)[:,1])
+# Display AUC scores
+print(f'Logistics Regression L2 tuned Train AUC Score: {log_reg_l2_train_auc:.4f}')
+print(f'Logistics Regression L2 tuned Test AUC Score: {log_reg_l2_test_auc:.4f}')
+
+# Decision Tree
+### Instantiate the Decision Tree
+# Instantiate the Decision Tree model
+decision_tree = DecisionTreeClassifier(random_state=42)
+
+### Fit and Train the Model on the Data
+# Fit the model
+decision_tree.fit(X_train_processed, y_train)
+
+# Print Scores
+print(decision_tree.score(X_train_processed, y_train))
+print(decision_tree.score(X_test_processed, y_test))
+
+### Accuracy score
+# Make predictions
+dt_train_preds = decision_tree.predict(X_train_processed)
+dt_test_preds = decision_tree.predict(X_test_processed)
+
+# Accuracy Scores
+dt_train_accuracy = accuracy_score(y_train, dt_train_preds)
+dt_test_accuracy = accuracy_score(y_test, dt_test_preds)
+print(f'Decision Tree Train Accuracy Score: {dt_train_accuracy}')
+print(f'Decision Tree Test Accuracy Score: {dt_test_accuracy}')
+
+### Recall prediction
+# Recall Scores
+dt_train_recall = recall_score(y_train, dt_train_preds, pos_label=1)
+dt_test_recall = recall_score(y_test, dt_test_preds, pos_label=1)
+print(f'Decision Tree Train Recall Score: {dt_train_recall}')
+print(f'Decision Tree Test Recall Score: {dt_test_recall}')
+
+### Precision score
+# Precision Scores
+dt_train_precision = precision_score(y_train, dt_train_preds, pos_label=1)
+dt_test_precision = precision_score(y_test, dt_test_preds, pos_label=1)
+print(f'Decision Tree Train Precision Score: {dt_train_precision}')
+print(f'Decision Tree Test Precision Score: {dt_test_precision}')
+
+### AUC scores
+# AUC Scores
+dt_train_auc = roc_auc_score(y_train, decision_tree.predict_proba(X_train_processed)[:,1])
+dt_test_auc = roc_auc_score(y_test, decision_tree.predict_proba(X_test_processed)[:,1])
+print(f'Decision Tree Train AUC Score: {dt_train_auc}')
+print(f'Decision Tree Test AUC Score: {dt_test_auc}')
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, recall_score, precision_score, roc_auc_score
+
+# Instantiate the Decision Tree model
+decision_tree = DecisionTreeClassifier(random_state=42)
+
+# Fit the model
+decision_tree.fit(X_train_processed, y_train)
+
+# Predictions
+dt_train_preds = decision_tree.predict(X_train_processed)
+dt_test_preds = decision_tree.predict(X_test_processed)
+
+# Accuracy Scores
+dt_train_accuracy = accuracy_score(y_train, dt_train_preds)
+dt_test_accuracy = accuracy_score(y_test, dt_test_preds)
+print(f'Decision Tree Train Accuracy Score: {dt_train_accuracy}')
+print(f'Decision Tree Test Accuracy Score: {dt_test_accuracy}')
+
+# Recall Scores
+dt_train_recall = recall_score(y_train, dt_train_preds, pos_label=1)
+dt_test_recall = recall_score(y_test, dt_test_preds, pos_label=1)
+print(f'Decision Tree Train Recall Score: {dt_train_recall}')
+print(f'Decision Tree Test Recall Score: {dt_test_recall}')
+
+# Precision Scores
+dt_train_precision = precision_score(y_train, dt_train_preds, pos_label=1)
+dt_test_precision = precision_score(y_test, dt_test_preds, pos_label=1)
+print(f'Decision Tree Train Precision Score: {dt_train_precision}')
+print(f'Decision Tree Test Precision Score: {dt_test_precision}')
+
+# AUC Scores
+dt_train_auc = roc_auc_score(y_train, decision_tree.predict_proba(X_train_processed)[:,1])
+dt_test_auc = roc_auc_score(y_test, decision_tree.predict_proba(X_test_processed)[:,1])
+print(f'Decision Tree Train AUC Score: {dt_train_auc}')
+print(f'Decision Tree Test AUC Score: {dt_test_auc}')
+
+### Gaussian naive Bayes Model
+from sklearn.naive_bayes import GaussianNB
+
+# Instantiate the Gaussian Naive Bayes model
+gnb = GaussianNB()
+
+# Fit the model
+gnb.fit(X_train_processed, y_train)
+
+# Predictions
+gnb_train_preds = gnb.predict(X_train_processed)
+gnb_test_preds = gnb.predict(X_test_processed)
+
+# Accuracy Scores
+gnb_train_accuracy = accuracy_score(y_train, gnb_train_preds)
+gnb_test_accuracy = accuracy_score(y_test, gnb_test_preds)
+print(f'Gaussian Naive Bayes Train Accuracy Score: {gnb_train_accuracy}')
+print(f'Gaussian Naive Bayes Test Accuracy Score: {gnb_test_accuracy}')
+
+# Recall Scores
+gnb_train_recall = recall_score(y_train, gnb_train_preds, pos_label=1)
+gnb_test_recall = recall_score(y_test, gnb_test_preds, pos_label=1)
+print(f'Gaussian Naive Bayes Train Recall Score: {gnb_train_recall}')
+print(f'Gaussian Naive Bayes Test Recall Score: {gnb_test_recall}')
+
+# Precision Scores
+gnb_train_precision = precision_score(y_train, gnb_train_preds, pos_label=1)
+gnb_test_precision = precision_score(y_test, gnb_test_preds, pos_label=1)
+print(f'Gaussian Naive Bayes Train Precision Score: {gnb_train_precision}')
+print(f'Gaussian Naive Bayes Test Precision Score: {gnb_test_precision}')
+
+# AUC Scores
+gnb_train_auc = roc_auc_score(y_train, gnb.predict_proba(X_train_processed)[:,1])
+gnb_test_auc = roc_auc_score(y_test, gnb.predict_proba(X_test_processed)[:,1])
+print(f'Gaussian Naive Bayes Train AUC Score: {gnb_train_auc}')
+print(f'Gaussian Naive Bayes Test AUC Score: {gnb_test_auc}')
+
+### Support vector Machine
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, recall_score, precision_score, roc_auc_score
+
+# Instantiate the Support Vector Machine model
+svm = SVC(probability=True, random_state=42)
+
+# Fit the model
+svm.fit(X_train_processed, y_train)
+
+# Predictions
+svm_train_preds = svm.predict(X_train_processed)
+svm_test_preds = svm.predict(X_test_processed)
+
+# Accuracy Scores
+svm_train_accuracy = accuracy_score(y_train, svm_train_preds)
+svm_test_accuracy = accuracy_score(y_test, svm_test_preds)
+print(f'SVM Train Accuracy Score: {svm_train_accuracy}')
+print(f'SVM Test Accuracy Score: {svm_test_accuracy}')
+
+# Recall Scores
+svm_train_recall = recall_score(y_train, svm_train_preds, pos_label=1)
+svm_test_recall = recall_score(y_test, svm_test_preds, pos_label=1)
+print(f'SVM Train Recall Score: {svm_train_recall}')
+print(f'SVM Test Recall Score: {svm_test_recall}')
+
+# Precision Scores
+svm_train_precision = precision_score(y_train, svm_train_preds, pos_label=1)
+svm_test_precision = precision_score(y_test, svm_test_preds, pos_label=1)
+print(f'SVM Train Precision Score: {svm_train_precision}')
+print(f'SVM Test Precision Score: {svm_test_precision}')
+
+# AUC Scores
+svm_train_auc = roc_auc_score(y_train, svm.predict_proba(X_train_processed)[:,1])
+svm_test_auc = roc_auc_score(y_test, svm.predict_proba(X_test_processed)[:,1])
+print(f'SVM Train AUC Score: {svm_train_auc}')
+print(f'SVM Test AUC Score: {svm_test_auc}')
+
+### Extreme gradient boosting Model
+from xgboost import XGBClassifier
+# Convert 'MetSyn'/'No MetSyn' to 1/0 and handle NaN values
+y_train_binary = y_train.map({'MetSyn': 1, 'No MetSyn': 0}).fillna(0)
+y_test_binary = y_test.map({'MetSyn': 1, 'No MetSyn': 0}).fillna(0)
+
+# Instantiate the XGBoost model
+xgb = XGBClassifier(random_state=42, use_label_encoder=False, eval_metric='logloss')
+
+# Fit the model
+xgb.fit(X_train_processed, y_train_binary)
+
+# Predictions
+xgb_train_preds = xgb.predict(X_train_processed)
+xgb_test_preds = xgb.predict(X_test_processed)
+
+# Accuracy Scores
+xgb_train_accuracy = accuracy_score(y_train_binary, xgb_train_preds)
+xgb_test_accuracy = accuracy_score(y_test_binary, xgb_test_preds)
+print(f'XGBoost Train Accuracy Score: {xgb_train_accuracy}')
+print(f'XGBoost Test Accuracy Score: {xgb_test_accuracy}')
+
+# Recall Scores
+xgb_train_recall = recall_score(y_train_binary, xgb_train_preds, pos_label=1)
+xgb_test_recall = recall_score(y_test_binary, xgb_test_preds, pos_label=1)
+print(f'XGBoost Train Recall Score: {xgb_train_recall}')
+print(f'XGBoost Test Recall Score: {xgb_test_recall}')
+
+# Precision Scores
+xgb_train_precision = precision_score(y_train_binary, xgb_train_preds, pos_label=1)
+xgb_test_precision = precision_score(y_test_binary, xgb_test_preds, pos_label=1)
+print(f'XGBoost Train Precision Score: {xgb_train_precision}')
+print(f'XGBoost Test Precision Score: {xgb_test_precision}')
+
+# AUC Scores
+xgb_train_auc = roc_auc_score(y_train_binary, xgb.predict_proba(X_train_processed)[:,1])
+xgb_test_auc = roc_auc_score(y_test_binary, xgb.predict_proba(X_test_processed)[:,1])
+print(f'XGBoost Train AUC Score: {xgb_train_auc}')
+print(f'XGBoost Test AUC Score: {xgb_test_auc}')
+
+### Random Forest Model
+### Instantiate the Random Forest Model
+# Instantiate the Random Forest model
+ran_for = RandomForestClassifier(random_state=42)
+
+# Fit the model
+ran_for.fit(X_train_processed, y_train)
+
+### Fit and Train the Model on the Data
+# Fit the model
+ran_for.fit(X_train_processed, y_train)
+
+# Make an instance of the Model
+ran_for = RandomForestClassifier(random_state = 42)
+
+### Predictions
+# Fit the RandomForestClassifier on the training data
+ran_for.fit(X_train_processed, y_train)
+
+# Predictions from RandomForestClassifier
+ran_for_train_preds = ran_for.predict(X_train_processed)
+ran_for_test_preds = ran_for.predict(X_test_processed)
 
 
 
