@@ -1,4 +1,5 @@
-# Metaboic Syndrome prediction using machine learning Algorithms Models in People living with HIV on DTG based Regimen
+# Machine Learning-based Prediction of Metabolic Syndrome Enhances Risk Stratification in Dolutegravir-Treated HIV Cohorts
+
 
 ## Table of Content
 ---
@@ -14,17 +15,17 @@
   
  ### Project Overview
  ---
-Our aim was to systematically investigate the performance of the seven popular machine learning (ML) algorithms in predicting metabolic syndrome risks in PLHIV on a dolutegravair based regimen. The final analysis included 1034 VISEND participants without MetS at baseline who completed follow-up to 144 weeks. The follow up visists were at weeks 24, 48, 64, 96, 112 and 144. At the follow up visits, anthropometric measurements were done, blood for lipid profile, CD$ count, blood glucose and HIV viral load (HIVVL) were collected and testing. The dataset was divided randomly into two groups, one was the training set (80%) and the other test set (20%). To predict MetS outcomes, the dataset was randomly divided into the training set extreme gradient boosting (XGB), Gaussian naive Bayes (NB), k-nearest neighbors (KNN), L1-penalized logistic regression (LR), L2-penalized logistic regression (LR2), support vector machine with radial basis function (SVM), decision tree (DT), and random forest (RF). Ten-fold cross-validation was employed when developing the model and fine-tuning the hyperparameters in the training set. In the test set, the model's performance was assessed in terms of its clinical significance, discrimination, and calibration. The performances of the predictive models were evaluated using accuracy, sensitivity, specificity, precision, f1-score, and AUC.
+We analyzed a retrospective cohort of 1027 PLHIV without MetS at baseline, followed-up for 144 weeks. Participants were randomly allocated into training (70%) and test (30%) sets. Logistic regression (LR), support vector machine (SVM-linear/radial), decision tree (DT), random forest (RF), k-nearest neighbors (KNN), Gaussian naive Bayes (NB), lightGBM and XGBoost were used to predict MetS outcomes.  Models were trained using five-fold cross-validation with hyperparameter tuning. Performance was assessed on the test set using discrimination, calibration, and classification metrics. RF was used to rank the importance of the predictors. In this study, we sought to develop and validate a suite of supervised machine learning algorithms to predict the onset of MetS in a Zambian cohort of PLHIV on dolutegravir (DTG)-based regimens.
 
 ### Data Source
 ---
-VISEND clinical trial Data: The primary dataset used for this analysis is "MetSyn_dataset_2025.xlsx" file, this file contains baseline, week-_24, week-_48, week-_64, week-_96, week-_112 and week-_144 follow up visits with information on antropometric measurements, lipid profile, HIVVL and CD4 count test.
+VISEND clinical trial Data: The primary dataset used for this analysis is "MetSyn_dataset_2025.xlsx" file, this file contains baseline and week-_144 follow up visits with information on antropometric measurements, lipid profile, HIVVL and CD4 count test.
 
 ### Tools
 ---
 - Excel -data cleaning and capturing [Download here)(https://www.microsoft.com)
 - RedCap -data storage [Download here](https://redcap.moh.gov.zm)
-- Python -data cleaning and analysis [dowload here](https://www.python.org/downloads)
+- R -data cleaning and analysis [dowload here](https://https://cran.r-project.org)
 
 ### Data cleaning and Preparation
 ---
