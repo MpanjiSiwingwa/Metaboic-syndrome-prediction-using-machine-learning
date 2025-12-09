@@ -25,7 +25,7 @@ VISEND clinical trial Data: The primary dataset used for this analysis is "MetSy
 ---
 - Excel -data cleaning and capturing [Download here)(https://www.microsoft.com)
 - RedCap -data storage [Download here](https://redcap.moh.gov.zm)
-- R -data cleaning and analysis [dowload here](https://https://cran.r-project.org)
+- R — data cleaning and analysis [download here](https://cran.r-project.org)
 
 ### Data cleaning and Preparation
 ---
