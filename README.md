@@ -192,10 +192,41 @@ source("scripts/04_model_evaluation.R")
 source("scripts/05_visualization.R")
 ```
 ---
-### 📊 Figures
-- ROC curve comparison
-- Precision‑Recall curves
-- SHAP feature importance
+## 📊 Figures
+
+Below are the key figures supporting the manuscript. Click any thumbnail to view the full‑size image.
+
+### Main Figures
+[![Figure 1 – Framework](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_010526.pdf)](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_010526.pdf)  
+*Figure 1. Framework for predicting metabolic syndrome in PLHIV.*
+
+[![Figure 2 – HL Original](figures/Figure_2_HL_Original.png)](figures/Figure_2_HL_Original.png)  
+*Figure 2. Hosmer–Lemeshow calibration plot.*
+
+[![Figure 3 – ROC Curves](figures/Figure_3_ROC_Curves_Enhanced.png)](figures/Figure_3_ROC_Curves_Enhanced.png)  
+*Figure 3. ROC curves comparing model performance.*
+
+[![Figure 4 – Decision Curve](figures/Figure_4_Decision_Curve_Analysis.png)](figures/Figure_4_Decision_Curve_Analysis.png)  
+*Figure 4. Decision curve analysis for clinical utility.*
+
+[![Figure 5 – SHAP Importance](figures/Figure_5_SHAP_Importance.png)](figures/Figure_5_SHAP_Importance.png)  
+*Figure 5. SHAP feature importance values.*
+
+[![Figure 6 – Sensitivity Analysis](figures/Figure_6_Sensitivity_Analysis.png)](figures/Figure_6_Sensitivity_Analysis.png)  
+*Figure 6. Sensitivity analysis of model robustness.*
+
+---
+
+### Supplementary Figures
+[![Figure S1 – Random Forest](figures/Figure_S1_RandomForest.png)](figures/Figure_S1_RandomForest.png)  
+*Figure S1. Random Forest feature selection results.*
+
+[![Figure S2 – Boruta](figures/Figure_S2_Boruta.png)](figures/Figure_S2_Boruta.png)  
+*Figure S2. Boruta feature selection results.*
+
+[![Figure S3 – CD4 GAM Effect](figures/Figure_S3_CD4_GAM_Effect.png)](figures/Figure_S3_CD4_GAM_Effect.png)  
+*Figure S3. Generalized additive model effect of CD4 count.*
+
 ---
 ### 🔄 Reproducibility
 
