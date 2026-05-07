@@ -5,11 +5,36 @@
 ![Clinical Research](https://img.shields.io/badge/Clinical-HIV%20Research-red?logo=medrxiv)
 ![Project Status](https://img.shields.io/badge/Status-Active_Research-orange?logo=github)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green?logo=open-source-initiative)
+[![GitHub Profile](https://img.shields.io/badge/GitHub-MpanjiSiwingwa-black?logo=github)](https://github.com/MpanjiSiwingwa)
 
 Predictive machine learning pipeline for identifying incident metabolic syndrome (MetS) among people living with HIV (PLHIV) receiving dolutegravir-based antiretroviral therapy (ART) using longitudinal clinical trial data from Zambia.
 
 ---
+## Table of Contents
 
+- [Highlights](#highlights)
+- [Project Overview](#project-overview)
+- [Workflow](#workflow)
+- [Dataset](#-dataset)
+- [Machine Learning Models](#-machine-learning-models)
+- [Feature Selection & Explainability](#-feature-selection--explainability)
+- [Model Evaluation](#-model-evaluation)
+- [Key Findings](#-key-findings)
+- [Repository Structure](#-repository-structure)
+- [Quick Start](#-quick-start)
+- [Installation](#️-installation)
+- [Running the Pipeline](#️-running-the-pipeline)
+- [Figures](#-figures)
+- [Reproducibility](#-reproducibility)
+- [Strengths](#-strengths)
+- [Limitations](#️-limitations)
+- [Future Work](#-future-work)
+- [References](#-references)
+- [Citation](#-citation)
+- [License](#-license)
+- [Contact](#-contact)
+- [Status](#-status)
+---
 # Highlights
 
 - Developed and compared **9 supervised machine learning models**
@@ -58,32 +83,8 @@ Calibration Analysis
 Explainability (SHAP)
         ↓
 Clinical Utility Assessment
-
-## Table of Content
-
-* Highlights￼
-* Project Overview￼
-* Workflow￼
-* Dataset￼
-* Machine Learning Models￼
-* Feature Selection & Explainability￼
-* Model Evaluation￼
-* Key Findings￼
-* Repository Structure￼
-* Quick Start￼
-* Installation￼
-* Running the Pipeline￼
-* Figures￼
-* Reproducibility￼
-* Strengths￼
-* Limitations￼
-* Future Work￼
-* References￼
-* Citation￼
-* License￼
-* Contact￼
-* Status￼
-  
+```
+---
 ### 📊 Dataset
 - Population: Adults living with HIV receiving dolutegravir‑based ART
 - Follow‑up: Up to 144 weeks
@@ -91,10 +92,8 @@ Clinical Utility Assessment
 - Outcome: Incident metabolic syndrome (MetS)
 - Predictors: demographics, clinical, HIV‑related, lifestyle, laboratory variables
 - Leakage prevention: diagnostic MetS variables excluded (waist, BP, HDL, triglycerides, glucose)
-
+---
 ### 🤖 Machine Learning Models
-
-## 🤖 Machine Learning Models
 
 | Model             | Description                  |
 | ----------------- | ---------------------------- |
@@ -108,16 +107,16 @@ Clinical Utility Assessment
 | KNN                 | k‑nearest neighbours        |
 | Naïve Bayes         | Probabilistic classifier    |
 
-
+---
 ### **🧩 Feature Selection & Explainability**
 - **Selection:** Boruta, Random Forest importance, VIF diagnostics
 - **Explainability:** SHAP values for feature importance, interpretability, and clinical insight
-
+---
 ### 📈 Model Evaluation
 - **Validation:** stratified train/test split, repeated 10‑fold CV, hyperparameter tuning
 - **Metrics:** ROC‑AUC, PR‑AUC, accuracy, sensitivity, specificity, MCC, Youden index, Brier score
 - **Additional:** calibration analysis, decision curve analysis, GAM diagnostics
-
+---
 ### 🔑 Key Findings
 - Radial SVM & logistic regression best (AUC ≈0.64)
 - XGBoost high sensitivity, lower specificity
@@ -125,9 +124,9 @@ Clinical Utility Assessment
 - SHAP confirmed age, sex, viral load, alcohol use as key predictors
 - GAM revealed non‑linear CD4 effects
 - Complex models offered modest gains over logistic regression
-
+---
 ### 📂 Repository Structure
-
+```text
 MetSyn-ML-Prediction/
 │
 ├── README.md
@@ -152,12 +151,15 @@ MetSyn-ML-Prediction/
 │   └── shap_outputs.csv
 └── manuscript/
     └── supplementary_materials.pdf
-
+```
+---
 ### 🚀 Quick Start
-git clone https://github.com/YOUR_USERNAME/MetSyn-ML-Prediction.git
-cd MetSyn-ML-Prediction
+```bash
+git clone https://github.com/MpanjiSiwingwa/Metabolic-syndrome-prediction-using-machine-learning.git
+cd Metabolic-syndrome-prediction-using-machine-learning
 Rscript scripts/01_data_cleaning.R
-
+```
+---
 ### ⚙️ Installation
 
 ```r
@@ -179,7 +181,7 @@ install.packages(c(
   "mice"
 ))
 ```
-
+---
 ### ▶️ Running the Pipeline
 
 ```r
@@ -188,15 +190,13 @@ source("scripts/02_feature_selection.R")
 source("scripts/03_model_training.R")
 source("scripts/04_model_evaluation.R")
 source("scripts/05_visualization.R")
-...
 ```
-
-
+---
 ### 📊 Figures
 - ROC curve comparison
 - Precision‑Recall curves
 - SHAP feature importance
-
+---
 ### 🔄 Reproducibility
 
 - R version: 4.5.1
@@ -210,6 +210,7 @@ Export session information:
 ```r
 writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
 ```
+---
 ### ✅ Strengths
 - Focused on PLHIV receiving contemporary ART, an underrepresented population in predictive modeling.
 - Systematic evaluation of multiple machine learning algorithms.
@@ -228,18 +229,14 @@ writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
 - Temporal prediction models
 - Clinical risk score development
 - EMR/CDSS integration
-
+---
 ###  📚 References
 1. Hamooya BM, Mulenga LB, Masenga SK, Fwemba I, Chirwa L, Siwingwa M, et al. Metabolic syndrome in Zambian adults with human immunodeficiency virus on antiretroviral therapy: Prevalence and associated factors. Medicine (United States). 2021;100(14). doi:10.1097/MD.0000000000025236
 2. Zambia Ministry of Health. Zambia Consolidated Guidelines for Treatment and Prevention of HIV Infection. Lusaka, Zambia.
 3. Saklayen MG. The Global Epidemic of the Metabolic Syndrome. Curr Hypertens Rep. 2018;20(2):12. doi:10.1007/s11906-018-0812-z
-4. Todowede OO, Mianda SZ, Sartorius B. Prevalence of metabolic syndrome among HIV-positive and HIV-negative populations in sub-Saharan Africa: A systematic review and meta-analysis. Syst Rev. 2019;8:4. doi:10.1186/s13643-018-0927-y
-5. Moons KGM, Altman DG, Reitsma JB, Ioannidis J, Macaskill P, Steyerberg EW, et al. Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis (TRIPOD): Explanation and Elaboration. Ann Intern Med. 2015;162:W1–73.
-6. Collins GS, Dhiman P, Ma J, Schlussel MM, Archer L, Van Calster B, et al. Evaluation of clinical prediction models (part 1): from development to external validation. BMJ. 2024;38191193. doi:10.1136/bmj-2023-074819
-Vickers AJ, Elkin EB. Decision curve analysis: A novel method for evaluating prediction models. Med Decis Making. 2006;26(6):565–74. doi:10.1177/0272989X06295361
-Chen T, Guestrin C. XGBoost: A scalable tree boosting system. Proc ACM SIGKDD Int Conf Knowl Discov Data Min. 2016:785–94. doi:10.1145/2939672.2939785
-Breiman L. Random Forests. Mach Learn. 2001;45:5–32.
-
+4. Moons KGM, Altman DG, Reitsma JB, Ioannidis J, Macaskill P, Steyerberg EW, et al. Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis (TRIPOD): Explanation and Elaboration. Ann Intern Med. 2015;162:W1–73.
+5. Vickers AJ, Elkin EB. Decision curve analysis: A novel method for evaluating prediction models. Med Decis Making. 2006;26(6):565–74.doi:10.1177/0272989X06295361
+---
 ### 📌 Citation
 Siwingwa M, et al. Machine Learning‑Based Prediction of Metabolic Syndrome in HIV Cohorts Receiving Dolutegravir‑Based ART. (Manuscript in preparation, 2026).
 
