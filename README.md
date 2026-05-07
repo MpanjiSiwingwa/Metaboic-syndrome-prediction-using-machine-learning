@@ -141,10 +141,15 @@ MetSyn-ML-Prediction/
 │   ├── 05_visualization.R
 │   └── utils.R
 ├── figures/
-│   ├── ROC_Curves.png
-│   ├── PR_Curves.png
-│   ├── SHAP_Importance.png
-│   └── Workflow_Diagram.png
+│   ├── Figure 1_Framework for Predicting MetSyn_010526.pdf
+│   ├── Figure_2_HL_Original.png
+│   ├── Figure_3_ROC_Curves_Enhanced.png
+│   ├── Figure_4_Decision_Curve_Analysis.png
+│   ├── Figure_5_SHAP_Importance.png
+│   ├── Figure_6_Sensitivity_Analysis.png
+│   ├── Figure_S1_RandomForest.png
+│   ├── Figure_S2_Boruta.png
+│   └── Figure_S3_CD4_GAM_Effect.png
 ├── results/
 │   ├── model_metrics.csv
 │   ├── calibration_results.csv
