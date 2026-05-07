@@ -202,7 +202,7 @@ source("scripts/05_visualization.R")
 Below are the key figures supporting the manuscript. Click any thumbnail to view the full‑size image.
 
 ### Main Figures
-[![Figure 1 – Framework](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_010526.pdf)](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_010526.pdf)  
+[![Figure 1 – Framework](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_070526.png)](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_070526.png)  
 *Figure 1. Framework for predicting metabolic syndrome in PLHIV.*
 
 [![Figure 2 – HL Original](figures/Figure_2_HL_Original.png)](figures/Figure_2_HL_Original.png)  
