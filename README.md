@@ -1,4 +1,4 @@
-# Machine Learning-Based Prediction of Metabolic Syndrome in HIV Cohorts Receiving Dolutegravir-Based ART
+# Machine learning Models for Predicting Metabolic Syndrome to Support Clinical Decision-Making in ART-Treated Adults Living With HIV
 
 ![R Version](https://img.shields.io/badge/R-4.5.1-blue?logo=r)
 ![Machine Learning](https://img.shields.io/badge/Machine_Learning-Pipeline-success?logo=r)
