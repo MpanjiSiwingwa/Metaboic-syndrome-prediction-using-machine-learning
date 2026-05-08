@@ -1,4 +1,4 @@
-# Machine Learning‑Based Prediction of Metabolic Syndrome in HIV Cohorts Receiving Dolutegravir‑Based ART
+# Machine Learning-Based Prediction of Metabolic Syndrome in HIV Cohorts Receiving Dolutegravir-Based ART
 
 ![R Version](https://img.shields.io/badge/R-4.5.1-blue?logo=r)
 ![Machine Learning](https://img.shields.io/badge/Machine_Learning-Pipeline-success?logo=r)
@@ -10,32 +10,41 @@
 Predictive machine learning pipeline for identifying incident metabolic syndrome (MetS) among people living with HIV (PLHIV) receiving dolutegravir-based antiretroviral therapy (ART) using longitudinal clinical trial data from Zambia.
 
 ---
-## Table of Contents
 
-- [Highlights](#highlights)
-- [Project Overview](#project-overview)
-- [Workflow](#workflow)
+## 📖 Table of Contents
+
+- [Highlights](#-highlights)
+- [Project Overview](#-project-overview)
+- [Study Workflow](#-study-workflow)
 - [Dataset](#-dataset)
 - [Machine Learning Models](#-machine-learning-models)
 - [Feature Selection & Explainability](#-feature-selection--explainability)
 - [Model Evaluation](#-model-evaluation)
-- [Key Findings](#-key-findings)
 - [Repository Structure](#-repository-structure)
-- [Quick Start](#-quick-start)
-- [Installation](#️-installation)
-- [Running the Pipeline](#️-running-the-pipeline)
+- [Getting Started](#️-getting-started)
+- [Reproducible Environment](#-reproducible-environment)
+- [System Requirements](#-system-requirements)
+- [Approximate Runtime](#️-approximate-runtime)
 - [Figures](#-figures)
-- [Reproducibility](#-reproducibility)
+- [Results](#-results)
+- [Key Findings](#-key-findings)
+- [Manuscript–Code Correspondence](#-manuscriptcode-correspondence)
+- [Data Availability](#-data-availability)
+- [Ethical Approval](#-ethical-approval)
+- [Reporting Standards](#-reporting-standards)
 - [Strengths](#-strengths)
 - [Limitations](#️-limitations)
 - [Future Work](#-future-work)
 - [References](#-references)
 - [Citation](#-citation)
+- [Repository Citation](#-repository-citation)
 - [License](#-license)
 - [Contact](#-contact)
 - [Status](#-status)
+
 ---
-# Highlights
+
+## 🔬 Highlights
 
 - Developed and compared **9 supervised machine learning models**
 - Applied **SHAP explainability** for interpretable AI
@@ -46,91 +55,104 @@ Predictive machine learning pipeline for identifying incident metabolic syndrome
 
 ---
 
-# Project Overview
+## 📘 Project Overview
 
 Metabolic syndrome (MetS) is increasingly prevalent among people living with HIV, particularly among individuals receiving dolutegravir-based antiretroviral therapy. Early identification of high-risk individuals may support preventive interventions and improve long-term cardiovascular outcomes.
 
 This repository contains the complete machine learning workflow used to develop predictive models for metabolic syndrome using longitudinal HIV clinical data from the VISEND study conducted in Zambia.
 
-The project combines:
-- clinical epidemiology,
-- machine learning,
-- explainable AI,
-- and reproducible research practices.
+The project integrates:
+- Clinical epidemiology
+- Machine learning
+- Explainable artificial intelligence (XAI)
+- Reproducible research practices
 
 ---
 
-# Workflow
+## 🖼️ Study Workflow
 
-```text
-Raw Clinical Data
-        ↓
-Data Cleaning & Quality Control
-        ↓
-Feature Engineering
-        ↓
-Feature Selection
-(Boruta + Random Forest + VIF)
-        ↓
-Train/Test Split
-        ↓
-Machine Learning Model Training
-        ↓
-Model Evaluation
-        ↓
-Calibration Analysis
-        ↓
-Explainability (SHAP)
-        ↓
-Clinical Utility Assessment
-```
----
-### 📊 Dataset
-- Population: Adults living with HIV receiving dolutegravir‑based ART
-- Follow‑up: Up to 144 weeks
-- Source: VISEND study, University Teaching Hospital, Lusaka, Zambia
-- Outcome: Incident metabolic syndrome (MetS)
-- Predictors: demographics, clinical, HIV‑related, lifestyle, laboratory variables
-- Leakage prevention: diagnostic MetS variables excluded (waist, BP, HDL, triglycerides, glucose)
----
-### 🤖 Machine Learning Models
-
-| Model             | Description                  |
-| ----------------- | ---------------------------- |
-| Logistic Regression | Regularized GLM             |
-| Random Forest       | Ensemble tree‑based         |
-| XGBoost             | Gradient boosting           |
-| LightGBM            | Efficient boosting          |
-| SVM (Linear)        | Linear kernel               |
-| SVM (Radial)        | Non‑linear kernel           |
-| Decision Tree       | Recursive partitioning      |
-| KNN                 | k‑nearest neighbours        |
-| Naïve Bayes         | Probabilistic classifier    |
+![Workflow](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_070526.png)
 
 ---
-### **🧩 Feature Selection & Explainability**
-- **Selection:** Boruta, Random Forest importance, VIF diagnostics
-- **Explainability:** SHAP values for feature importance, interpretability, and clinical insight
+
+## 📊 Dataset
+
+- **Population:** Adults living with HIV receiving dolutegravir-based ART
+- **Follow-up:** Up to 144 weeks
+- **Source:** VISEND study, University Teaching Hospital, Lusaka, Zambia
+- **Outcome:** Incident metabolic syndrome (MetS)
+- **Predictors:** Demographic, clinical, HIV-related, lifestyle, and laboratory variables
+
+### Leakage Prevention
+
+Diagnostic variables directly used in the harmonized definition of metabolic syndrome (waist circumference, triglycerides, HDL cholesterol, blood pressure, and fasting glucose) were excluded from predictive modeling to reduce target leakage and improve clinical validity.
+
 ---
-### 📈 Model Evaluation
-- **Validation:** stratified train/test split, repeated 10‑fold CV, hyperparameter tuning
-- **Metrics:** ROC‑AUC, PR‑AUC, accuracy, sensitivity, specificity, MCC, Youden index, Brier score
-- **Additional:** calibration analysis, decision curve analysis, GAM diagnostics
+
+## 🤖 Machine Learning Models
+
+| Model | Description |
+|---|---|
+| Logistic Regression | Regularized generalized linear model |
+| Random Forest | Ensemble tree-based classifier |
+| XGBoost | Gradient boosting framework |
+| LightGBM | Efficient gradient boosting |
+| SVM (Linear) | Linear kernel support vector machine |
+| SVM (Radial) | Non-linear kernel support vector machine |
+| Decision Tree | Recursive partitioning model |
+| K-Nearest Neighbours | Distance-based classifier |
+| Naïve Bayes | Probabilistic classifier |
+
 ---
-### 🔑 Key Findings
-- Radial SVM & logistic regression best (AUC ≈0.64)
-- XGBoost high sensitivity, lower specificity
-- Calibration improved with isotonic regression
-- SHAP confirmed age, sex, viral load, alcohol use as key predictors
-- GAM revealed non‑linear CD4 effects
-- Complex models offered modest gains over logistic regression
+
+## 🧩 Feature Selection & Explainability
+
+### Feature Selection
+- Boruta algorithm
+- Random Forest variable importance
+- Variance Inflation Factor (VIF) diagnostics
+
+### Explainability
+- SHAP values for:
+  - feature importance
+  - local interpretability
+  - clinical insight generation
+
 ---
-### 📂 Repository Structure
+
+## 📈 Model Evaluation
+
+### Validation Strategy
+- Stratified train/test split
+- Repeated 10-fold cross-validation
+- Hyperparameter tuning
+
+### Performance Metrics
+- ROC-AUC
+- PR-AUC
+- Accuracy
+- Sensitivity
+- Specificity
+- Matthews Correlation Coefficient (MCC)
+- Youden Index
+- Brier Score
+
+### Additional Analyses
+- Calibration analysis
+- Decision curve analysis
+- Generalized additive model (GAM) diagnostics
+
+---
+
+## 📂 Repository Structure
+
 ```text
 MetSyn-ML-Prediction/
 │
 ├── README.md
 ├── LICENSE
+├── renv.lock
+├── .gitignore
 ├── data/
 │   └── README_data.md
 ├── scripts/
@@ -141,31 +163,25 @@ MetSyn-ML-Prediction/
 │   ├── 05_visualization.R
 │   └── utils.R
 ├── figures/
-│   ├── Figure 1_Framework for Predicting MetSyn_010526.pdf
-│   ├── Figure_2_HL_Original.png
-│   ├── Figure_3_ROC_Curves_Enhanced.png
-│   ├── Figure_4_Decision_Curve_Analysis.png
-│   ├── Figure_5_SHAP_Importance.png
-│   ├── Figure_6_Sensitivity_Analysis.png
-│   ├── Figure_S1_RandomForest.png
-│   ├── Figure_S2_Boruta.png
-│   └── Figure_S3_CD4_GAM_Effect.png
 ├── results/
-│   ├── model_metrics.csv
-│   ├── calibration_results.csv
-│   └── shap_outputs.csv
-└── manuscript/
-    └── supplementary_materials.pdf
+├── manuscript/
+└── sessionInfo.txt
 ```
+
 ---
-### 🚀 Quick Start
+
+## 🛠️ Getting Started
+
+### 🚀 Clone the Repository
+
 ```bash
 git clone https://github.com/MpanjiSiwingwa/Metabolic-syndrome-prediction-using-machine-learning.git
 cd Metabolic-syndrome-prediction-using-machine-learning
-Rscript scripts/01_data_cleaning.R
 ```
+
 ---
-### ⚙️ Installation
+
+### ⚙️ Install Dependencies
 
 ```r
 install.packages(c(
@@ -183,11 +199,14 @@ install.packages(c(
   "rmda",
   "mgcv",
   "car",
-  "mice"
+  "mice",
+  "renv"
 ))
 ```
+
 ---
-### ▶️ Running the Pipeline
+
+### ▶️ Run the Pipeline
 
 ```r
 source("scripts/01_data_cleaning.R")
@@ -196,98 +215,216 @@ source("scripts/03_model_training.R")
 source("scripts/04_model_evaluation.R")
 source("scripts/05_visualization.R")
 ```
----
-## 📊 Figures
 
-Below are the key figures supporting the manuscript. Click any thumbnail to view the full‑size image.
+Alternatively:
 
-### Main Figures
-[![Figure 1 – Framework](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_070526.png)](figures/Figure%201_Framework%20for%20Predicting%20MetSyn_070526.png)  
-*Figure 1. Framework for predicting metabolic syndrome in PLHIV.*
-
-[![Figure 2 – HL Original](figures/Figure_2_HL_Original.png)](figures/Figure_2_HL_Original.png)  
-*Figure 2. Hosmer–Lemeshow calibration plot.*
-
-[![Figure 3 – ROC Curves](figures/Figure_3_ROC_Curves_Enhanced.png)](figures/Figure_3_ROC_Curves_Enhanced.png)  
-*Figure 3. ROC curves comparing model performance.*
-
-[![Figure 4 – Decision Curve](figures/Figure_4_Decision_Curve_Analysis.png)](figures/Figure_4_Decision_Curve_Analysis.png)  
-*Figure 4. Decision curve analysis for clinical utility.*
-
-[![Figure 5 – SHAP Importance](figures/Figure_5_SHAP_Importance.png)](figures/Figure_5_SHAP_Importance.png)  
-*Figure 5. SHAP feature importance values.*
-
-[![Figure 6 – Sensitivity Analysis](figures/Figure_6_Sensitivity_Analysis.png)](figures/Figure_6_Sensitivity_Analysis.png)  
-*Figure 6. Sensitivity analysis of model robustness.*
+```bash
+Rscript scripts/01_data_cleaning.R
+```
 
 ---
 
-### Supplementary Figures
-[![Figure S1 – Random Forest](figures/Figure_S1_RandomForest.png)](figures/Figure_S1_RandomForest.png)  
-*Figure S1. Random Forest feature selection results.*
+## 📦 Reproducible Environment
 
-[![Figure S2 – Boruta](figures/Figure_S2_Boruta.png)](figures/Figure_S2_Boruta.png)  
-*Figure S2. Boruta feature selection results.*
+Package versions were managed using:
+- R 4.5.1
+- `renv`
+- `sessionInfo()`
 
-[![Figure S3 – CD4 GAM Effect](figures/Figure_S3_CD4_GAM_Effect.png)](figures/Figure_S3_CD4_GAM_Effect.png)  
-*Figure S3. Generalized additive model effect of CD4 count.*
+Restore the computational environment using:
 
----
-### 🔄 Reproducibility
-
-- R version: 4.5.1
-- Random seed: 123
-- Stratified train/test split
-- Repeated 10-fold CV
-- Fully scripted workflow
+```r
+renv::restore()
+```
 
 Export session information:
 
 ```r
 writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
 ```
+
 ---
-### ✅ Strengths
-- Focused on PLHIV receiving contemporary ART, an underrepresented population in predictive modeling.
-- Systematic evaluation of multiple machine learning algorithms.
-- Comprehensive assessment using discrimination, calibration, and decision curve analysis.
 
-### ⚠️ Limitations
-- External and prospective validation is required before clinical application.
-- Important predictors (diet, physical activity, genetics) were unavailable.
-- Generalisability may be limited across different populations and treatment regimens.
-- Calibration partly relied on the Hosmer–Lemeshow test, which has known limitations.
-- Lack of suitable external datasets restricted external validation.
+## 💻 System Requirements
 
-### 🔮 Future Work
+- R ≥ 4.5.1
+- macOS, Linux, or Windows
+- Recommended RAM: ≥16 GB
+- Multi-core CPU recommended for model training
+
+---
+
+## ⏱️ Approximate Runtime
+
+| Step | Estimated Runtime |
+|---|---|
+| Data cleaning | 2–5 min |
+| Feature selection | 5–15 min |
+| Model training | 20–60 min |
+| SHAP analysis | 10–30 min |
+
+---
+
+## 📊 Figures
+
+Key manuscript figures are available in the `figures/` directory.
+
+### Main Figures
+- Figure 1. Predictive modeling workflow
+- Figure 2. Calibration analysis
+- Figure 3. ROC curve comparison
+- Figure 4. Decision curve analysis
+- Figure 5. SHAP feature importance
+- Figure 6. Sensitivity analysis
+
+### Supplementary Figures
+- Random Forest feature importance
+- Boruta feature selection
+- GAM effect plots
+
+---
+
+## 📈 Results
+
+The performance of the primary machine learning models is summarized below.
+
+| Model | ROC-AUC (95% CI) | PR-AUC (%) | Accuracy (%) |
+|---|---|---|---|
+| Decision Tree | 53.4 (45.1–61.8) | 22.2 | 44.7 |
+| K-NN | 63.7 (55.1–72.2) | 29.9 | 69.0 |
+| LightGBM | 60.3 (51.9–68.7) | 26.6 | 51.8 |
+| Logistic Regression | 63.3 (54.8–71.8) | 32.1 | 70.2 |
+| Naïve Bayes | 62.0 (53.6–70.4) | 28.2 | 61.6 |
+| XGBoost | 59.6 (51.1–68.1) | 30.7 | 45.5 |
+| Random Forest | 61.6 (52.6–70.5) | 28.5 | 70.2 |
+| SVM Linear | 49.3 (39.8–58.9) | 22.0 | 71.0 |
+| **SVM Radial** | **64.2 (56.1–72.3)** | **31.8** | **52.2** |
+
+The best discrimination performance was observed for the radial SVM model, followed closely by logistic regression. Despite modest discrimination, calibration and decision curve analyses suggested potential clinical utility for identifying higher-risk individuals.
+
+---
+
+## 🔑 Key Findings
+
+- Radial SVM and logistic regression showed the best discrimination performance
+- XGBoost demonstrated higher sensitivity with lower specificity
+- Calibration improved after isotonic regression
+- SHAP identified age, sex, viral load, and alcohol use as key predictors
+- GAM analysis revealed non-linear CD4 effects
+- Complex machine learning models provided only modest gains over logistic regression
+
+---
+
+## 🧪 Manuscript–Code Correspondence
+
+| Manuscript Component | Repository Script |
+|---|---|
+| Data preprocessing | `01_data_cleaning.R` |
+| Feature selection | `02_feature_selection.R` |
+| Model development | `03_model_training.R` |
+| Model evaluation | `04_model_evaluation.R` |
+| Visualization and SHAP | `05_visualization.R` |
+
+---
+
+## 🔐 Data Availability
+
+The VISEND clinical dataset used in this study contains sensitive participant information and is not publicly available due to ethical and institutional restrictions.
+
+Researchers interested in accessing de-identified data for scientific collaboration may contact the corresponding author subject to institutional approvals and data-sharing agreements.
+
+All scripts required to reproduce the analyses are fully available in this repository.
+
+---
+
+## 🧾 Ethical Approval
+
+The VISEND study received ethical approval from the University of Zambia Biomedical Research Ethics Committee (UNZABREC). All participants provided informed consent prior to enrollment.
+
+---
+
+## 📑 Reporting Standards
+
+This repository and accompanying manuscript were developed in alignment with:
+- TRIPOD reporting recommendations
+- TRIPOD-AI guidance principles
+- Transparent and reproducible machine learning practices in clinical research
+
+---
+
+## ✅ Strengths
+
+- Focused on PLHIV receiving contemporary ART
+- Comprehensive evaluation of multiple machine learning algorithms
+- Included calibration and clinical utility assessment
+- Emphasized explainability and reproducibility
+
+---
+
+## ⚠️ Limitations
+
+- External and prospective validation remain necessary before clinical implementation
+- Important predictors such as diet, physical activity, and genomics were unavailable
+- Generalisability across populations and treatment regimens may be limited
+- Lack of external datasets restricted external validation opportunities
+
+This study represents an internally validated predictive modeling framework. External validation in geographically and clinically independent cohorts remains necessary prior to clinical implementation.
+
+---
+
+## 🔮 Future Work
+
 - External validation in independent cohorts
-- Genomic predictor integration
-- Temporal prediction models
+- Integration of genomic predictors
+- Temporal prediction modeling
 - Clinical risk score development
 - EMR/CDSS integration
----
-###  📚 References
-1. Hamooya BM, Mulenga LB, Masenga SK, Fwemba I, Chirwa L, Siwingwa M, et al. Metabolic syndrome in Zambian adults with human immunodeficiency virus on antiretroviral therapy: Prevalence and associated factors. Medicine (United States). 2021;100(14). doi:10.1097/MD.0000000000025236
-2. Zambia Ministry of Health. Zambia Consolidated Guidelines for Treatment and Prevention of HIV Infection. Lusaka, Zambia.
-3. Saklayen MG. The Global Epidemic of the Metabolic Syndrome. Curr Hypertens Rep. 2018;20(2):12. doi:10.1007/s11906-018-0812-z
-4. Moons KGM, Altman DG, Reitsma JB, Ioannidis J, Macaskill P, Steyerberg EW, et al. Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis (TRIPOD): Explanation and Elaboration. Ann Intern Med. 2015;162:W1–73.
-5. Vickers AJ, Elkin EB. Decision curve analysis: A novel method for evaluating prediction models. Med Decis Making. 2006;26(6):565–74.doi:10.1177/0272989X06295361
----
-### 📌 Citation
-Siwingwa M, et al. Machine Learning‑Based Prediction of Metabolic Syndrome in HIV Cohorts Receiving Dolutegravir‑Based ART. (Manuscript in preparation, 2026).
 
-# 📜 License
+---
+
+## 📚 References
+
+1. Hamooya BM, Mulenga LB, Masenga SK, et al. *Medicine (Baltimore).* 2021;100(14).  
+2. Zambia Ministry of Health. Zambia Consolidated HIV Guidelines.  
+3. Saklayen MG. *Curr Hypertens Rep.* 2018;20(2):12.  
+4. Moons KGM, Altman DG, Reitsma JB, et al. *Ann Intern Med.* 2015;162:W1–73.  
+5. Vickers AJ, Elkin EB. *Med Decis Making.* 2006;26(6):565–574.
+
+---
+
+## 📌 Citation
+
+Siwingwa M, et al. *Machine Learning-Based Prediction of Metabolic Syndrome in HIV Cohorts Receiving Dolutegravir-Based ART.* Manuscript in preparation, 2026.
+
+---
+
+## 📖 Repository Citation
+
+Siwingwa M. *Metabolic Syndrome Prediction Using Machine Learning in HIV Cohorts Receiving Dolutegravir-Based ART* [GitHub repository]. 2026.
+
+Available at:  
+https://github.com/MpanjiSiwingwa/Metabolic-syndrome-prediction-using-machine-learning
+
+---
+
+## 📜 License
+
 This project is licensed under the MIT License.
 
+---
 
 ## 📬 Contact
+
 **Mpanji Siwingwa**  
-PhD Researcher | Machine Learning | HIV Research | Bioinformatics  
+PhD Researcher | Machine Learning | HIV Research | Bioinformatics
 
-- 🐙 GitHub: [https://github.com/MpanjiSiwingwa](https://github.com/MpanjiSiwingwa)  
-- ✉️ Email: [mpanjisiwingwa@gmail.com](mailto:mpanjisiwingwa@gmail.com)  
-- 🔗 LinkedIn: [linkedin.com/in/mpanji-siwingwa-b0272a74](https://linkedin.com/in/mpanji-siwingwa-b0272a74)  
-- 🔗 ORCID: [orcid.org/0000-0002-3623-2108](https://orcid.org/0000-0002-3623-2108)  
+- GitHub: https://github.com/MpanjiSiwingwa
+- Email: mpanjisiwingwa@gmail.com
+- LinkedIn: https://linkedin.com/in/mpanji-siwingwa-b0272a74
+- ORCID: https://orcid.org/0000-0002-3623-2108
 
-### 📌 Status
-This repository accompanies an ongoing research project and will evolve as additional analyses and validation studies are completed.
+---
+
+## 📌 Status
+
+This repository accompanies an ongoing research project and will continue evolving as additional analyses and validation studies are completed.
