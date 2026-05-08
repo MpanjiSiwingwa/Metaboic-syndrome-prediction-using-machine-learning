@@ -85,7 +85,7 @@ The project integrates:
 
 ### Leakage Prevention
 
-Diagnostic variables directly used in the harmonized definition of metabolic syndrome (waist circumference, triglycerides, HDL cholesterol, blood pressure, and fasting glucose) were excluded from predictive modeling to reduce target leakage and improve clinical validity.
+Diagnostic variables directly used in the harmonized definition of metabolic syndrome (waist circumference, hip Circumference, triglycerides, HDL cholesterol, blood pressure, and fasting glucose) were excluded from predictive modeling to reduce target leakage and improve clinical validity.
 
 ---
 
