@@ -146,26 +146,41 @@ Diagnostic variables directly used in the harmonized definition of metabolic syn
 
 ## 📂 Repository Structure
 
+## 📂 Repository Structure
+
 ```text
-MetSyn-ML-Prediction/
+Metabolic-syndrome-prediction-using-machine-learning/
 │
-├── README.md
-├── LICENSE
-├── renv.lock
-├── .gitignore
-├── data/
-│   └── README_data.md
-├── scripts/
-│   ├── 01_data_cleaning.R
-│   ├── 02_feature_selection.R
-│   ├── 03_model_training.R
-│   ├── 04_model_evaluation.R
-│   ├── 05_visualization.R
-│   └── utils.R
-├── figures/
-├── results/
-├── manuscript/
-└── sessionInfo.txt
+├── README.md                     # Project overview, methods, results summary, and usage instructions
+├── LICENSE                       # MIT License
+├── .gitignore                    # Files and folders excluded from version control
+├── renv.lock                     # Reproducible R package environment
+├── sessionInfo.txt               # R session information for reproducibility
+│
+├── MetSyn_pipeline_MLA.R         # Complete end-to-end machine learning pipeline
+│                                 # Includes:
+│                                 #   1. Data preparation and cleaning
+│                                 #   2. Feature selection
+│                                 #   3. Model development and hyperparameter tuning
+│                                 #   4. Model evaluation
+│                                 #   5. Calibration analysis
+│                                 #   6. Decision curve analysis
+│                                 #   7. SHAP explainability
+│                                 #   8. Sensitivity analyses
+│                                 #   9. Figure generation
+│
+└── figures/                      # Figures used in the manuscript and README
+    ├── Figure 1_Framework for Predicting MetSyn_070526.png
+    ├── Figure 2_Calibration Plot_070526.png
+    ├── Figure 3_ROC Curves_070526.png
+    ├── Figure 4_Decision Curve Analysis_070526.png
+    ├── Figure 5_SHAP Feature Importance_070526.png
+    ├── Figure 6_Sensitivity Analysis_070526.png
+    │
+    └── supplementary/
+        ├── Figure_S1_RandomForest.png
+        ├── Figure_S2_Boruta.png
+        └── Figure_S3_CD4_GAM_Effect.png
 ```
 
 ---
