@@ -192,6 +192,7 @@ Metabolic-syndrome-prediction-using-machine-learning/
 ```bash
 git clone https://github.com/MpanjiSiwingwa/Metabolic-syndrome-prediction-using-machine-learning.git
 cd Metabolic-syndrome-prediction-using-machine-learning
+Rscript pipeline_metabolic_syndrome_MLA.R
 ```
 
 ---
@@ -200,21 +201,28 @@ cd Metabolic-syndrome-prediction-using-machine-learning
 
 ```r
 install.packages(c(
-  "tidyverse",
-  "caret",
-  "recipes",
-  "glmnet",
-  "randomForest",
-  "xgboost",
-  "lightgbm",
-  "Boruta",
-  "fastshap",
-  "pROC",
-  "PRROC",
-  "rmda",
-  "mgcv",
-  "car",
-  "mice",
+  # 📦 Core data handling & visualization
+  "tidyverse", "dplyr", "tidyr", "purrr", "tibble", "ggplot2", "viridis",
+  "reshape2", "ggrepel", "ggpubr", "webshot2", "here",
+  
+  # ⚙️ Machine learning & modeling
+  "tidymodels", "caret", "recipes", "glmnet", "randomForest",
+  "xgboost", "lightgbm", "e1071", "rpart", "kknn", "rsample", "themis",
+  
+  # 🔍 Feature selection & interpretability
+  "Boruta", "fastshap",
+  
+  # 📊 Model evaluation & clinical utility
+  "pROC", "PRROC", "rmda", "ResourceSelection", "mgcv", "car",
+  "tableone", "gtsummary",
+  
+  # 📝 Reporting & outputs
+  "flextable", "officer", "knitr", "kableExtra",
+  
+  # 🔧 Additional utilities
+  "ppcor", "patchwork",
+  
+  # 🔒 Reproducibility
   "renv"
 ))
 ```
@@ -224,17 +232,13 @@ install.packages(c(
 ### ▶️ Run the Pipeline
 
 ```r
-source("scripts/01_data_cleaning.R")
-source("scripts/02_feature_selection.R")
-source("scripts/03_model_training.R")
-source("scripts/04_model_evaluation.R")
-source("scripts/05_visualization.R")
+source("pipeline_metabolic_syndrome_MLA.R")
 ```
 
 Alternatively:
 
 ```bash
-Rscript scripts/01_data_cleaning.R
+Rscript pipeline_metabolic_syndrome_MLA.R
 ```
 
 ---
@@ -334,11 +338,11 @@ The best discrimination performance was observed for the radial SVM model, follo
 
 | Manuscript Component | Repository Script |
 |---|---|
-| Data preprocessing | `01_data_cleaning.R` |
-| Feature selection | `02_feature_selection.R` |
-| Model development | `03_model_training.R` |
-| Model evaluation | `04_model_evaluation.R` |
-| Visualization and SHAP | `05_visualization.R` |
+| Data preprocessing | `pipeline_metabolic_syndrome_MLA.R` |
+| Feature selection | `pipeline_metabolic_syndrome_MLA.R` |
+| Model development | `pipeline_metabolic_syndrome_MLA.R` |
+| Model evaluation | `pipeline_metabolic_syndrome_MLA.R` |
+| Visualization and SHAP | `pipeline_metabolic_syndrome_MLA.R` |
 
 ---
 
