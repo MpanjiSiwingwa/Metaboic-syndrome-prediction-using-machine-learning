@@ -157,17 +157,17 @@ Metabolic-syndrome-prediction-using-machine-learning/
 ├── renv.lock                     # Reproducible R package environment
 ├── sessionInfo.txt               # R session information for reproducibility
 │
-├── MetSyn_pipeline_MLA.R         # Complete end-to-end machine learning pipeline
-│                                 # Includes:
-│                                 #   1. Data preparation and cleaning
-│                                 #   2. Feature selection
-│                                 #   3. Model development and hyperparameter tuning
-│                                 #   4. Model evaluation
-│                                 #   5. Calibration analysis
-│                                 #   6. Decision curve analysis
-│                                 #   7. SHAP explainability
-│                                 #   8. Sensitivity analyses
-│                                 #   9. Figure generation
+├── pipeline_metabolic_syndrome_MLA.R   # Complete end-to-end machine learning pipeline
+│                                       # Includes:
+│                                       #   1. Data preparation and cleaning
+│                                       #   2. Feature selection
+│                                       #   3. Model development and hyperparameter tuning
+│                                       #   4. Model evaluation
+│                                       #   5. Calibration analysis
+│                                       #   6. Decision curve analysis
+│                                       #   7. SHAP explainability
+│                                       #   8. Sensitivity analyses
+│                                       #   9. Figure generation
 │
 └── figures/                      # Figures used in the manuscript and README
     ├── Figure 1_Framework for Predicting MetSyn_070526.png
