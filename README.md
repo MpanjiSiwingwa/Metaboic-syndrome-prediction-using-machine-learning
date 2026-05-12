@@ -169,18 +169,18 @@ Metabolic-syndrome-prediction-using-machine-learning/
 │                                       #   8. Sensitivity analyses
 │                                       #   9. Figure generation
 │
-└── figures/                      # Figures used in the manuscript and README
-    ├── Figure 1_Framework for Predicting MetSyn_070526.png
-    ├── Figure 2_Calibration Plot_070526.png
-    ├── Figure 3_ROC Curves_070526.png
-    ├── Figure 4_Decision Curve Analysis_070526.png
-    ├── Figure 5_SHAP Feature Importance_070526.png
-    ├── Figure 6_Sensitivity Analysis_070526.png
-    │
-    └── supplementary/
-        ├── Figure_S1_RandomForest.png
-        ├── Figure_S2_Boruta.png
-        └── Figure_S3_CD4_GAM_Effect.png
+├── figures/                      # Figures used in the manuscript and README
+│   ├── Figure 1_Framework for Predicting MetSyn_070526.png
+│   ├── Figure 2_Calibration Plot_070526.png
+│   ├── Figure 3_ROC Curves_070526.png
+│   ├── Figure 4_Decision Curve Analysis_070526.png
+│   ├── Figure 5_SHAP Feature Importance_070526.png
+│   └── Figure 6_Sensitivity Analysis_070526.png
+│
+└── supplementary/                # Supplementary figures and materials
+    ├── Figure_S1_RandomForest.png
+    ├── Figure_S2_Boruta.png
+    └── Figure_S3_CD4_GAM_Effect.png
 ```
 
 ---
