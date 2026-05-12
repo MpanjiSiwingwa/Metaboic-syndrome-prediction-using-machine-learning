@@ -1,12 +1,12 @@
 # Machine learning Models for Predicting Metabolic Syndrome to Support Clinical Decision-Making in ART-Treated Adults Living With HIV
 
-[R Version](https://img.shields.io/badge/R-4.5.1-blue?logo=r)
+![R Version](https://img.shields.io/badge/R-4.5.1-blue?logo=r)
 ![Machine Learning](https://img.shields.io/badge/Machine_Learning-Pipeline-success?logo=r)
 ![Clinical Research](https://img.shields.io/badge/Clinical-HIV%20Research-red?logo=medrxiv)
 ![Project Status](https://img.shields.io/badge/Status-Active_Research-orange?logo=github)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green?logo=open-source-initiative)
 [![GitHub Profile](https://img.shields.io/badge/GitHub-MpanjiSiwingwa-black?logo=github)](https://github.com/MpanjiSiwingwa)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20145268.svg)](https://doi.org/10.5281/zenodo.20145268)
+[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.20145268-blue?logo=zenodo)](https://doi.org/10.5281/zenodo.20145268)
 
 Predictive machine learning pipeline for identifying incident metabolic syndrome (MetS) among people living with HIV (PLHIV) receiving dolutegravir-based antiretroviral therapy (ART) using longitudinal clinical trial data from Zambia.
 
