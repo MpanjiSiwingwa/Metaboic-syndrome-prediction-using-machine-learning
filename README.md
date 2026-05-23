@@ -145,7 +145,6 @@ Diagnostic variables directly used in the harmonized definition of metabolic syn
 
 ---
 
-## 📂 Repository Structure
 
 ## 📂 Repository Structure
 
